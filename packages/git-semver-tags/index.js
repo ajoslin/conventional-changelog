@@ -3,8 +3,7 @@
 var proc = require('process')
 var exec = require('child_process').exec
 var semverValid = require('semver').valid
-var regex = /tag:\s*(.+?)[,)]/gi
-var cmd = 'git log --decorate --no-color'
+var cmd = 'git tag --sort=-"v:refname"'
 var unstableTagTest = /.*-\w*\.\d$/
 
 function lernaTag (tag, pkg) {
@@ -38,28 +37,23 @@ module.exports = function gitSemverTags (opts, callback) {
     if (options.tagPrefix) {
       tagPrefixRegexp = new RegExp('^' + options.tagPrefix + '(.*)')
     }
-    data.split('\n').forEach(function (decorations) {
-      var match
-      while ((match = regex.exec(decorations))) {
-        var tag = match[1]
+    data.split('\n').forEach(function (tag) {
+      if (options.skipUnstable && unstableTagTest.test(tag)) {
+        // skip unstable tag
+        return
+      }
 
-        if (options.skipUnstable && unstableTagTest.test(tag)) {
-          // skip unstable tag
-          continue
-        }
-
-        if (options.lernaTags) {
-          if (lernaTag(tag, options.package)) {
-            tags.push(tag)
-          }
-        } else if (options.tagPrefix) {
-          var matches = tag.match(tagPrefixRegexp)
-          if (matches && semverValid(matches[1])) {
-            tags.push(tag)
-          }
-        } else if (semverValid(tag)) {
+      if (options.lernaTags) {
+        if (lernaTag(tag, options.package)) {
           tags.push(tag)
         }
+      } else if (options.tagPrefix) {
+        var matches = tag.match(tagPrefixRegexp)
+        if (matches && semverValid(matches[1])) {
+          tags.push(tag)
+        }
+      } else if (semverValid(tag)) {
+        tags.push(tag)
       }
     })
 
