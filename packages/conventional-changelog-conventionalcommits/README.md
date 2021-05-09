@@ -31,7 +31,7 @@ or json config like that:
         "preset": {
             "name": "conventionalchangelog",
             "issuePrefixes": ["TEST-"],
-            "issueUrlFormat": "myBugTracker.com/{prefix}{id}"
+            "issueUrlFormat": "myBugTracker.com/{{prefix}}{{id}}"
         }
     }
 }
