@@ -1,4 +1,9 @@
-# [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
+# conventional-changelog-conventionalcommits
+
+[![NPM version][npm-image]][npm-url]
+[![Build Status][ci-image]][ci-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![Codecov][codecov-image]][codecov-url]
 
 ## conventionalcommits.org convention
 
@@ -39,12 +44,15 @@ or json config like that:
 This last json config way passes the `preset` object to the `conventional-changelog-preset-loader` package, that in turn, passes this same `preset` object as the config for the `conventional-changelog-conventionalcommits`.
 
 
-
 See [conventional-changelog-config-spec](https://github.com/conventional-changelog/conventional-changelog-config-spec) for available
 configuration options.
 
 
-[travis-image]: https://travis-ci.org/conventional-changelog/conventional-changelog.svg?branch=master
-[travis-url]: https://travis-ci.org/conventional-changelog/conventional-changelog
-[coveralls-image]: https://coveralls.io/repos/conventional-changelog/conventional-changelog/badge.svg
-[coveralls-url]: https://coveralls.io/r/conventional-changelog/conventional-changelog
+[npm-image]: https://badge.fury.io/js/conventional-changelog-conventionalcommits.svg
+[npm-url]: https://npmjs.org/package/conventional-changelog-conventionalcommits
+[ci-image]: https://github.com/conventional-changelog/conventional-changelog/workflows/ci/badge.svg
+[ci-url]: https://github.com/conventional-changelog/conventional-changelog/actions?query=workflow%3Aci+branch%3Amaster
+[daviddm-image]: https://david-dm.org/conventional-changelog/conventional-changelog-angular.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/conventional-changelog/conventional-changelog-angular
+[codecov-image]: https://codecov.io/gh/conventional-changelog/conventional-changelog/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/conventional-changelog/conventional-changelog

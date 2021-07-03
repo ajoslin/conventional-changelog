@@ -1,4 +1,9 @@
-# gulp-conventional-changelog [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage Status][coveralls-image]][coveralls-url]
+# gulp-conventional-changelog
+
+[![NPM version][npm-image]][npm-url]
+[![Build Status][ci-image]][ci-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![Codecov][codecov-image]][codecov-url]
 
 > Generate a changelog using [conventional-changelog](https://github.com/ajoslin/conventional-changelog)
 
@@ -119,9 +124,9 @@ MIT © [Steve Mao](https://github.com/stevemao)
 
 [npm-image]: https://badge.fury.io/js/gulp-conventional-changelog.svg
 [npm-url]: https://npmjs.org/package/gulp-conventional-changelog
-[travis-image]: https://travis-ci.org/conventional-changelog/gulp-conventional-changelog.svg?branch=master
-[travis-url]: https://travis-ci.org/conventional-changelog/gulp-conventional-changelog
+[ci-image]: https://github.com/conventional-changelog/conventional-changelog/workflows/ci/badge.svg
+[ci-url]: https://github.com/conventional-changelog/conventional-changelog/actions?query=workflow%3Aci+branch%3Amaster
 [daviddm-image]: https://david-dm.org/conventional-changelog/gulp-conventional-changelog.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/conventional-changelog/gulp-conventional-changelog
-[coveralls-image]: https://coveralls.io/repos/github/conventional-changelog/gulp-conventional-changelog/badge.svg
-[coveralls-url]: https://coveralls.io/r/conventional-changelog/gulp-conventional-changelog
+[codecov-image]: https://codecov.io/gh/conventional-changelog/conventional-changelog/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/conventional-changelog/conventional-changelog

@@ -1,4 +1,9 @@
-#  [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage Status][coveralls-image]][coveralls-url]
+# conventional-changelog-jquery
+
+[![NPM version][npm-image]][npm-url]
+[![Build Status][ci-image]][ci-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![Codecov][codecov-image]][codecov-url]
 
 > [conventional-changelog](https://github.com/ajoslin/conventional-changelog) [jQuery](https://github.com/jquery/jquery) preset
 
@@ -44,9 +49,9 @@ Based on https://github.com/jquery/contribute.jquery.org/blob/master/pages/commi
 
 [npm-image]: https://badge.fury.io/js/conventional-changelog-jquery.svg
 [npm-url]: https://npmjs.org/package/conventional-changelog-jquery
-[travis-image]: https://travis-ci.org/conventional-changelog/conventional-changelog-jquery.svg?branch=master
-[travis-url]: https://travis-ci.org/conventional-changelog/conventional-changelog-jquery
+[ci-image]: https://github.com/conventional-changelog/conventional-changelog/workflows/ci/badge.svg
+[ci-url]: https://github.com/conventional-changelog/conventional-changelog/actions?query=workflow%3Aci+branch%3Amaster
 [daviddm-image]: https://david-dm.org/conventional-changelog/conventional-changelog-jquery.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/conventional-changelog/conventional-changelog-jquery
-[coveralls-image]: https://coveralls.io/repos/conventional-changelog/conventional-changelog-jquery/badge.svg
-[coveralls-url]: https://coveralls.io/r/conventional-changelog/conventional-changelog-jquery
+[codecov-image]: https://codecov.io/gh/conventional-changelog/conventional-changelog/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/conventional-changelog/conventional-changelog

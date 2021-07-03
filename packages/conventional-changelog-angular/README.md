@@ -1,4 +1,9 @@
-# [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage Status][coveralls-image]][coveralls-url]
+# conventional-changelog-angular
+
+[![NPM version][npm-image]][npm-url]
+[![Build Status][ci-image]][ci-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![Codecov][codecov-image]][codecov-url]
 
 > [conventional-changelog](https://github.com/ajoslin/conventional-changelog) [angular](https://github.com/angular/angular) preset
 
@@ -95,10 +100,10 @@ A detailed explanation can be found in this [document](#commit-message-format).
 
 [npm-image]: https://badge.fury.io/js/conventional-changelog-angular.svg
 [npm-url]: https://npmjs.org/package/conventional-changelog-angular
-[travis-image]: https://travis-ci.org/conventional-changelog/conventional-changelog-angular.svg?branch=master
-[travis-url]: https://travis-ci.org/conventional-changelog/conventional-changelog-angular
+[ci-image]: https://github.com/conventional-changelog/conventional-changelog/workflows/ci/badge.svg
+[ci-url]: https://github.com/conventional-changelog/conventional-changelog/actions?query=workflow%3Aci+branch%3Amaster
 [daviddm-image]: https://david-dm.org/conventional-changelog/conventional-changelog-angular.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/conventional-changelog/conventional-changelog-angular
-[coveralls-image]: https://coveralls.io/repos/conventional-changelog/conventional-changelog-angular/badge.svg
-[coveralls-url]: https://coveralls.io/r/conventional-changelog/conventional-changelog-angular
+[codecov-image]: https://codecov.io/gh/conventional-changelog/conventional-changelog/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/conventional-changelog/conventional-changelog
 [commit-message-format]: https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#

@@ -1,4 +1,9 @@
-#  [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage Status][coveralls-image]][coveralls-url]
+# conventional-changelog-eslint
+
+[![NPM version][npm-image]][npm-url]
+[![Build Status][ci-image]][ci-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![Codecov][codecov-image]][codecov-url]
 
 > [conventional-changelog](https://github.com/ajoslin/conventional-changelog) [eslint](https://github.com/eslint/eslint) preset
 
@@ -45,9 +50,9 @@ Based on https://eslint.org/docs/developer-guide/contributing/pull-requests#step
 
 [npm-image]: https://badge.fury.io/js/conventional-changelog-eslint.svg
 [npm-url]: https://npmjs.org/package/conventional-changelog-eslint
-[travis-image]: https://travis-ci.org/stevemao/conventional-changelog-eslint.svg?branch=master
-[travis-url]: https://travis-ci.org/stevemao/conventional-changelog-eslint
+[ci-image]: https://github.com/conventional-changelog/conventional-changelog/workflows/ci/badge.svg
+[ci-url]: https://github.com/conventional-changelog/conventional-changelog/actions?query=workflow%3Aci+branch%3Amaster
 [daviddm-image]: https://david-dm.org/stevemao/conventional-changelog-eslint.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/stevemao/conventional-changelog-eslint
-[coveralls-image]: https://coveralls.io/repos/stevemao/conventional-changelog-eslint/badge.svg
-[coveralls-url]: https://coveralls.io/r/stevemao/conventional-changelog-eslint
+[codecov-image]: https://codecov.io/gh/conventional-changelog/conventional-changelog/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/conventional-changelog/conventional-changelog

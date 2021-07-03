@@ -1,5 +1,10 @@
 # conventional-recommended-bump
 
+[![NPM version][npm-image]][npm-url]
+[![Build Status][ci-image]][ci-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![Codecov][codecov-image]][codecov-url]
+
 > Get a recommended version bump based on conventional commits.
 
 Got the idea from https://github.com/conventional-changelog/conventional-changelog/pull/29
@@ -189,3 +194,12 @@ Please read our [contributing guide](https://github.com/conventional-changelog/c
 ## License
 
 MIT © [Steve Mao](https://github.com/stevemao)
+
+[npm-image]: https://badge.fury.io/js/conventional-recommended-bump.svg
+[npm-url]: https://npmjs.org/package/conventional-recommended-bump
+[ci-image]: https://github.com/conventional-changelog/conventional-changelog/workflows/ci/badge.svg
+[ci-url]: https://github.com/conventional-changelog/conventional-changelog/actions?query=workflow%3Aci+branch%3Amaster
+[daviddm-image]: https://david-dm.org/conventional-changelog/conventional-recommended-bump.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/conventional-changelog/conventional-recommended-bump
+[codecov-image]: https://codecov.io/gh/conventional-changelog/conventional-changelog/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/conventional-changelog/conventional-changelog

@@ -1,4 +1,9 @@
-#  [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage Status][coveralls-image]][coveralls-url]
+# conventional-changelog-writer
+
+[![NPM version][npm-image]][npm-url]
+[![Build Status][ci-image]][ci-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![Codecov][codecov-image]][codecov-url]
 
 > Write logs based on conventional commits and templates
 
@@ -361,9 +366,9 @@ MIT © [Steve Mao](https://github.com/stevemao)
 
 [npm-image]: https://badge.fury.io/js/conventional-changelog-writer.svg
 [npm-url]: https://npmjs.org/package/conventional-changelog-writer
-[travis-image]: https://travis-ci.org/conventional-changelog/conventional-changelog-writer.svg?branch=master
-[travis-url]: https://travis-ci.org/conventional-changelog/conventional-changelog-writer
+[ci-image]: https://github.com/conventional-changelog/conventional-changelog/workflows/ci/badge.svg
+[ci-url]: https://github.com/conventional-changelog/conventional-changelog/actions?query=workflow%3Aci+branch%3Amaster
 [daviddm-image]: https://david-dm.org/conventional-changelog/conventional-changelog-writer.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/conventional-changelog/conventional-changelog-writer
-[coveralls-image]: https://coveralls.io/repos/conventional-changelog/conventional-changelog-writer/badge.svg
-[coveralls-url]: https://coveralls.io/r/conventional-changelog/conventional-changelog-writer
+[codecov-image]: https://codecov.io/gh/conventional-changelog/conventional-changelog/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/conventional-changelog/conventional-changelog

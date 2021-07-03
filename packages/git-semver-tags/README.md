@@ -1,4 +1,9 @@
-#  [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage Status][coveralls-image]][coveralls-url]
+# git-semver-tags
+
+[![NPM version][npm-image]][npm-url]
+[![Build Status][ci-image]][ci-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![Codecov][codecov-image]][codecov-url]
 
 > Get all git semver tags of your repository in reverse chronological order
 
@@ -46,9 +51,9 @@ MIT © [Steve Mao](https://github.com/stevemao)
 
 [npm-image]: https://badge.fury.io/js/git-semver-tags.svg
 [npm-url]: https://npmjs.org/package/git-semver-tags
-[travis-image]: https://travis-ci.org/conventional-changelog/git-semver-tags.svg?branch=master
-[travis-url]: https://travis-ci.org/conventional-changelog/git-semver-tags
+[ci-image]: https://github.com/conventional-changelog/conventional-changelog/workflows/ci/badge.svg
+[ci-url]: https://github.com/conventional-changelog/conventional-changelog/actions?query=workflow%3Aci+branch%3Amaster
 [daviddm-image]: https://david-dm.org/stevemao/git-semver-tags.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/stevemao/git-semver-tags
-[coveralls-image]: https://coveralls.io/repos/stevemao/git-semver-tags/badge.svg
-[coveralls-url]: https://coveralls.io/r/stevemao/git-semver-tags
+[codecov-image]: https://codecov.io/gh/conventional-changelog/conventional-changelog/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/conventional-changelog/conventional-changelog

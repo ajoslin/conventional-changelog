@@ -1,4 +1,9 @@
-#  [![NPM version][npm-image]][npm-url] [![Build Status: Linux][travis-image]][travis-url] [![Build Status: Windows][appveyor-image]][appveyor-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage Status][coveralls-image]][coveralls-url]
+# conventional-changelog-preset-loader
+
+[![NPM version][npm-image]][npm-url]
+[![Build Status][ci-image]][ci-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![Codecov][codecov-image]][codecov-url]
 
 > Configuration preset loader for `conventional-changelog`.
 
@@ -31,11 +36,9 @@ MIT © [Steve Mao](https://github.com/stevemao)
 
 [npm-image]: https://badge.fury.io/js/conventional-changelog-preset-loader.svg
 [npm-url]: https://npmjs.org/package/conventional-changelog-preset-loader
-[travis-image]: https://travis-ci.org/conventional-changelog/conventional-changelog-preset-loader.svg?branch=master
-[travis-url]: https://travis-ci.org/conventional-changelog/conventional-changelog-preset-loader
-[appveyor-image]: https://ci.appveyor.com/api/projects/status/baoumm34w8c5o0hv/branch/master?svg=true
-[appveyor-url]: https://ci.appveyor.com/project/stevemao/conventional-changelog-preset-loader/branch/master
+[ci-image]: https://github.com/conventional-changelog/conventional-changelog/workflows/ci/badge.svg
+[ci-url]: https://github.com/conventional-changelog/conventional-changelog/actions?query=workflow%3Aci+branch%3Amaster
 [daviddm-image]: https://david-dm.org/conventional-changelog/conventional-changelog-preset-loader.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/conventional-changelog/conventional-changelog-preset-loader
-[coveralls-image]: https://coveralls.io/repos/conventional-changelog/conventional-changelog-preset-loader/badge.svg
-[coveralls-url]: https://coveralls.io/r/conventional-changelog/conventional-changelog-preset-loader
+[codecov-image]: https://codecov.io/gh/conventional-changelog/conventional-changelog/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/conventional-changelog/conventional-changelog

@@ -1,4 +1,9 @@
-#  [![NPM version][npm-image]][npm-url] [![Build Status: Linux][travis-image]][travis-url] [![Build Status: Windows][appveyor-image]][appveyor-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage Status][coveralls-image]][coveralls-url]
+# conventional-changelog-core
+
+[![NPM version][npm-image]][npm-url]
+[![Build Status][ci-image]][ci-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![Codecov][codecov-image]][codecov-url]
 
 > [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) core
 
@@ -245,11 +250,9 @@ MIT
 
 [npm-image]: https://badge.fury.io/js/conventional-changelog-core.svg
 [npm-url]: https://npmjs.org/package/conventional-changelog-core
-[travis-image]: https://travis-ci.org/conventional-changelog/conventional-changelog-core.svg?branch=master
-[travis-url]: https://travis-ci.org/conventional-changelog/conventional-changelog-core
-[appveyor-image]: https://ci.appveyor.com/api/projects/status/baoumm34w8c5o0hv/branch/master?svg=true
-[appveyor-url]: https://ci.appveyor.com/project/stevemao/conventional-changelog-core/branch/master
+[ci-image]: https://github.com/conventional-changelog/conventional-changelog/workflows/ci/badge.svg
+[ci-url]: https://github.com/conventional-changelog/conventional-changelog/actions?query=workflow%3Aci+branch%3Amaster
 [daviddm-image]: https://david-dm.org/conventional-changelog/conventional-changelog-core.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/conventional-changelog/conventional-changelog-core
-[coveralls-image]: https://coveralls.io/repos/conventional-changelog/conventional-changelog-core/badge.svg
-[coveralls-url]: https://coveralls.io/r/conventional-changelog/conventional-changelog-core
+[codecov-image]: https://codecov.io/gh/conventional-changelog/conventional-changelog/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/conventional-changelog/conventional-changelog

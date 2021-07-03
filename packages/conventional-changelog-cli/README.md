@@ -1,6 +1,9 @@
 # conventional-changelog-cli
 
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+[![NPM version][npm-image]][npm-url]
+[![Build Status][ci-image]][ci-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![Codecov][codecov-image]][codecov-url]
 
 > Generate a changelog from git metadata
 
@@ -120,9 +123,9 @@ MIT © [Steve Mao](https://github.com/stevemao)
 
 [npm-image]: https://badge.fury.io/js/conventional-changelog-cli.svg
 [npm-url]: https://npmjs.org/package/conventional-changelog-cli
-[travis-image]: https://travis-ci.org/conventional-changelog/conventional-changelog-cli.svg?branch=master
-[travis-url]: https://travis-ci.org/conventional-changelog/conventional-changelog-cli
+[ci-image]: https://github.com/conventional-changelog/conventional-changelog/workflows/ci/badge.svg
+[ci-url]: https://github.com/conventional-changelog/conventional-changelog/actions?query=workflow%3Aci+branch%3Amaster
 [daviddm-image]: https://david-dm.org/conventional-changelog/conventional-changelog-cli.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/conventional-changelog/conventional-changelog-cli
-[coveralls-image]: https://coveralls.io/repos/conventional-changelog/conventional-changelog-cli/badge.svg
-[coveralls-url]: https://coveralls.io/r/conventional-changelog/conventional-changelog-cli
+[codecov-image]: https://codecov.io/gh/conventional-changelog/conventional-changelog/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/conventional-changelog/conventional-changelog
