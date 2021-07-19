@@ -1,5 +1,4 @@
 'use strict'
-const Q = require('q')
 const _ = require('lodash')
 const conventionalChangelog = require('./conventional-changelog')
 const parserOpts = require('./parser-opts')
@@ -12,12 +11,12 @@ module.exports = function (parameter) {
     // parameter is a callback object
     const config = {}
     // FIXME: use presetOpts(config) for callback
-    Q.all([
+    Promise.all([
       conventionalChangelog(config),
       parserOpts(config),
       recommendedBumpOpts(config),
       writerOpts(config)
-    ]).spread((conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts) => {
+    ]).then(([conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts]) => {
       parameter(null, { gitRawCommitsOpts: { noMerges: null }, conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts })
     })
   } else {
@@ -27,12 +26,12 @@ module.exports = function (parameter) {
 }
 
 function presetOpts (config) {
-  return Q.all([
+  return Promise.all([
     conventionalChangelog(config),
     parserOpts(config),
     recommendedBumpOpts(config),
     writerOpts(config)
-  ]).spread((conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts) => {
+  ]).then(([conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts]) => {
     return { conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts }
   })
 }

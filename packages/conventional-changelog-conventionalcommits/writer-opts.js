@@ -2,8 +2,8 @@
 
 const addBangNotes = require('./add-bang-notes')
 const compareFunc = require('compare-func')
-const Q = require('q')
-const readFile = Q.denodeify(require('fs').readFile)
+const promisify = require('util').promisify
+const readFile = promisify(require('fs').readFile)
 const resolve = require('path').resolve
 const releaseAsRe = /release-as:\s*\w*@?([0-9]+\.[0-9]+\.[0-9a-z]+(-[0-9a-z.]+)?)\s*/i
 
@@ -34,13 +34,13 @@ module.exports = function (config) {
     prefix: '{{this.prefix}}'
   })
 
-  return Q.all([
+  return Promise.all([
     readFile(resolve(__dirname, './templates/template.hbs'), 'utf-8'),
     readFile(resolve(__dirname, './templates/header.hbs'), 'utf-8'),
     readFile(resolve(__dirname, './templates/commit.hbs'), 'utf-8'),
     readFile(resolve(__dirname, './templates/footer.hbs'), 'utf-8')
   ])
-    .spread((template, header, commit, footer) => {
+    .then(([template, header, commit, footer]) => {
       const writerOpts = getWriterOpts(config)
 
       writerOpts.mainTemplate = template

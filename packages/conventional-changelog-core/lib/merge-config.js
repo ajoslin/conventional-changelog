@@ -1,15 +1,15 @@
 'use strict'
+const promisify = require('util').promisify
 const dateFormat = require('dateformat')
 const getPkgRepo = require('get-pkg-repo')
 const gitSemverTags = require('git-semver-tags')
 const normalizePackageData = require('normalize-package-data')
-const Q = require('q')
 let gitRemoteOriginUrl
 try {
   gitRemoteOriginUrl = require('git-remote-origin-url')
 } catch (err) {
   gitRemoteOriginUrl = function () {
-    return Q.reject(err)
+    return Promise.reject(err)
   }
 }
 const readPkg = require('read-pkg')
@@ -19,8 +19,19 @@ const _ = require('lodash')
 
 const rhosts = /github|bitbucket|gitlab/i
 
+// TODO: delete when min node target is set to 12.10+
+Promise.allSettled = Promise.allSettled || function (promises) {
+  const wrappedPromises = promises.map((p) =>
+    Promise.resolve(p).then(
+      (value) => ({ status: 'fulfilled', value }),
+      (reason) => ({ status: 'rejected', reason })
+    )
+  )
+  return Promise.all(wrappedPromises)
+}
+
 function semverTagsPromise (options) {
-  return Q.Promise(function (resolve, reject) {
+  return new Promise(function (resolve, reject) {
     gitSemverTags({ lernaTags: !!options.lernaPackage, package: options.lernaPackage, tagPrefix: options.tagPrefix, skipUnstable: options.skipUnstable }, function (err, result) {
       if (err) {
         reject(err)
@@ -94,24 +105,24 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
 
   if (options.config) {
     if (_.isFunction(options.config)) {
-      configPromise = Q.nfcall(options.config)
+      configPromise = promisify(options.config)()
     } else {
-      configPromise = Q(options.config)
+      configPromise = Promise.resolve(options.config)
     }
   }
 
   if (options.pkg) {
     if (options.pkg.path) {
-      pkgPromise = Q(readPkg(options.pkg.path))
+      pkgPromise = readPkg(options.pkg.path)
     } else {
-      pkgPromise = Q(readPkgUp())
+      pkgPromise = readPkgUp()
     }
   }
 
-  const gitRemoteOriginUrlPromise = Q(gitRemoteOriginUrl())
+  const gitRemoteOriginUrlPromise = gitRemoteOriginUrl()
 
-  return Q.allSettled([configPromise, pkgPromise, semverTagsPromise(options), gitRemoteOriginUrlPromise])
-    .spread(function (configObj, pkgObj, tagsObj, gitRemoteOriginUrlObj) {
+  return Promise.allSettled([configPromise, pkgPromise, semverTagsPromise(options), gitRemoteOriginUrlPromise])
+    .then(function ([configObj, pkgObj, tagsObj, gitRemoteOriginUrlObj]) {
       let config
       let pkg
       let fromTag
@@ -122,7 +133,7 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
       let gitSemverTags = []
 
       if (configPromise) {
-        if (configObj.state === 'fulfilled') {
+        if (configObj.status === 'fulfilled') {
           config = configObj.value
         } else {
           options.warn('Error in config' + configObj.reason.toString())
@@ -135,7 +146,7 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
       context = _.assign(context, config.context)
 
       if (options.pkg) {
-        if (pkgObj.state === 'fulfilled') {
+        if (pkgObj.status === 'fulfilled') {
           if (options.pkg.path) {
             pkg = pkgObj.value
           } else {
@@ -148,7 +159,7 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
         }
       }
 
-      if ((!pkg || !pkg.repository || !pkg.repository.url) && gitRemoteOriginUrlObj.state === 'fulfilled') {
+      if ((!pkg || !pkg.repository || !pkg.repository.url) && gitRemoteOriginUrlObj.status === 'fulfilled') {
         pkg = pkg || {}
         pkg.repository = pkg.repository || {}
         pkg.repository.url = gitRemoteOriginUrlObj.value
@@ -188,7 +199,7 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
 
       context.version = context.version || ''
 
-      if (tagsObj.state === 'fulfilled') {
+      if (tagsObj.status === 'fulfilled') {
         gitSemverTags = context.gitSemverTags = tagsObj.value
         fromTag = gitSemverTags[options.releaseCount - 1]
         const lastTag = gitSemverTags[0]

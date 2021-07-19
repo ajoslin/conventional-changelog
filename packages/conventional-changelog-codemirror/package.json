@@ -31,8 +31,5 @@
   "bugs": {
     "url": "https://github.com/conventional-changelog/conventional-changelog/issues"
   },
-  "homepage": "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-codemirror#readme",
-  "dependencies": {
-    "q": "^1.5.1"
-  }
+  "homepage": "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-codemirror#readme"
 }

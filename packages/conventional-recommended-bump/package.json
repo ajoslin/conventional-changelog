@@ -37,8 +37,7 @@
     "conventional-commits-parser": "^3.2.0",
     "git-raw-commits": "^2.0.8",
     "git-semver-tags": "^4.1.1",
-    "meow": "^8.0.0",
-    "q": "^1.5.1"
+    "meow": "^8.0.0"
   },
   "scripts": {
     "test-windows": "mocha --timeout 30000 ./test/preset-resolver.spec.js"

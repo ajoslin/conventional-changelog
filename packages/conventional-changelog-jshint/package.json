@@ -33,7 +33,6 @@
   },
   "homepage": "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-jshint#readme",
   "dependencies": {
-    "compare-func": "^2.0.0",
-    "q": "^1.5.1"
+    "compare-func": "^2.0.0"
   }
 }
