@@ -24,6 +24,7 @@ jobs:
       - name: coverage
         uses: codecov/codecov-action@v1
         with:
+          files: ./coverage/lcov.info
           name: actions ${{ matrix.node }}
           fail_ci_if_error: true
   windows:
@@ -40,5 +41,6 @@ jobs:
       - name: coverage
         uses: codecov/codecov-action@v1
         with:
+          files: ./coverage/lcov.info
           name: actions windows
           fail_ci_if_error: true
