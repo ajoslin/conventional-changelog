@@ -1,5 +1,4 @@
 {{> header}}
-
 {{#if noteGroups}}
 {{#each noteGroups}}
 
@@ -10,14 +9,27 @@
 {{/each}}
 {{/each}}
 {{/if}}
+{{#if isPatch}}
 {{#each commitGroups}}
-
 {{#if title}}
+
+#### {{title}}
+
+{{/if}}
+{{#each commits}}
+{{> commit root=@root}}
+{{/each}}
+{{/each}}
+{{else}}
+{{#each commitGroups}}
+{{#if title}}
+
 ### {{title}}
 
 {{/if}}
 {{#each commits}}
 {{> commit root=@root}}
 {{/each}}
-
 {{/each}}
+{{/if}}
+{{> footer}}
