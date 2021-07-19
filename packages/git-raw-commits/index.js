@@ -52,36 +52,29 @@ function gitRawCommits (rawGitOpts, rawExecOpts) {
     gitOpts.debug('Your git-log command is:\ngit ' + args.join(' '))
   }
 
-  let isError = false
-
   const child = execFile('git', args, {
     cwd: execOpts.cwd,
     maxBuffer: Infinity
+  }, function (err) {
+    if (err != null) {
+      readable.emit('error', err)
+    }
+
+    readable.emit('close')
   })
 
   child.stdout
     .pipe(split(DELIMITER + '\n'))
     .pipe(through(function (chunk, enc, cb) {
       readable.push(chunk)
-      isError = false
 
       cb()
     }, function (cb) {
       setImmediate(function () {
-        if (!isError) {
-          readable.push(null)
-          readable.emit('close')
-        }
+        readable.push(null)
 
         cb()
       })
-    }))
-
-  child.stderr
-    .pipe(through.obj(function (chunk) {
-      isError = true
-      readable.emit('error', new Error(chunk))
-      readable.emit('close')
     }))
 
   return readable

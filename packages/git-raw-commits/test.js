@@ -29,8 +29,6 @@ describe('git-raw-commits', function () {
       })
       .pipe(through(function () {
         done('should error')
-      }, function () {
-        done('should error')
       }))
   })
 
@@ -191,5 +189,25 @@ describe('git-raw-commits', function () {
         expect(i).to.equal(3)
         done()
       }))
+  })
+
+  it('should emit an error if git is not available', function (done) {
+    try {
+      var path = process.env.PATH
+      process.env.PATH = ''
+
+      gitRawCommits()
+        .on('error', function (err) {
+          expect(err).to.be.ok // eslint-disable-line no-unused-expressions
+          done()
+        })
+        .pipe(through(function () {
+          done('should error')
+        }, function () {
+          done('should error')
+        }))
+    } finally {
+      process.env.PATH = path
+    }
   })
 })
