@@ -25,7 +25,6 @@ betterThanBefore.setups([
     shell.cd(__dirname)
     dir = process.cwd()
     const tmpDir = tmp.dirSync().name
-    shell.mkdir(tmpDir)
     shell.cd(tmpDir)
     shell.mkdir('git-templates')
     shell.exec('git init --initial-branch master --template=./git-templates')

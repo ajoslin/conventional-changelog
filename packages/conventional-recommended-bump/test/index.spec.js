@@ -8,15 +8,15 @@ const describe = mocha.describe
 const it = mocha.it
 const gitDummyCommit = require('git-dummy-commit')
 const shell = require('shelljs')
-const temp = require('temp')
+const tmp = require('tmp')
 
 const preparing = betterThanBefore.preparing
 shell.config.silent = true
 
 betterThanBefore.setups([
   () => { // 1
-    const tempDirectory = temp.mkdirSync()
-    shell.cd(tempDirectory)
+    const tmpDir = tmp.dirSync().name
+    shell.cd(tmpDir)
     shell.exec('git init')
   },
   () => { // 2
