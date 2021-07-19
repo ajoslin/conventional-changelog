@@ -60,7 +60,7 @@
     "git-dummy-commit": "^1.2.0",
     "git-tails": "^1.0.0",
     "mkdirp": "^1.0.0",
-    "mocha": "^8.0.0",
+    "mocha": "^9.0.0",
     "pinkie-promise": "^2.0.0",
     "q": "^1.5.1",
     "safe-buffer": "5.2.1",
