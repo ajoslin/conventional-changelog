@@ -1,3 +1,15 @@
 {
-  "extends": "standard"
+  "extends": [
+    "standard"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "packages/*/test{,/*}.js"
+      ],
+      "env": {
+        "mocha": true
+      }
+    }
+  ]
 }

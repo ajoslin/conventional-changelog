@@ -1,10 +1,6 @@
 'use strict'
 const expect = require('chai').expect
 const gitRawCommits = require('./')
-const mocha = require('mocha')
-const describe = mocha.describe
-const before = mocha.before
-const it = mocha.it
 const shell = require('shelljs')
 const through = require('through2')
 const writeFileSync = require('fs').writeFileSync

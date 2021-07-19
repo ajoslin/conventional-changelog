@@ -2,9 +2,6 @@
 const conventionalChangelogWriter = require('../')
 const dedent = require('dedent')
 const expect = require('chai').expect
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
 const map = require('lodash').map
 const through = require('through2')
 const today = require('dateformat')(new Date(), 'yyyy-mm-dd', true)

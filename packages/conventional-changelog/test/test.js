@@ -1,10 +1,6 @@
 'use strict'
 const conventionalChangelog = require('../')
 const expect = require('chai').expect
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
-const before = mocha.before
 const shell = require('shelljs')
 const through = require('through2')
 const writeFileSync = require('fs').writeFileSync

@@ -1,8 +1,5 @@
 'use strict'
 const conventionalCommitsFilter = require('./')
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
 const assert = require('assert')
 
 describe('conventional-commits-filter', function () {

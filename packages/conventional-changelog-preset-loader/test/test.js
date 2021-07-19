@@ -1,9 +1,6 @@
 'use strict'
 
 const chai = require('chai')
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
 const presetLoader = require('../').presetLoader
 const sinon = require('sinon')
 const sinonChai = require('sinon-chai')

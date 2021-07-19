@@ -1,10 +1,5 @@
 'use strict'
 const expect = require('chai').expect
-const mocha = require('mocha')
-const before = mocha.before
-const it = mocha.it
-const beforeEach = mocha.beforeEach
-const describe = mocha.describe
 const fs = require('fs')
 const path = require('path')
 const Handlebars = require('handlebars')

@@ -2,9 +2,6 @@
 
 const assert = require('assert')
 const presetResolver = require('../preset-resolver')
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
 
 describe('preset-resolver', () => {
   it('rejects if preset package is not a promise, function, or object', () => {

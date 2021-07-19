@@ -1,8 +1,5 @@
 'use strict'
 const conventionalCommitsParser = require('../')
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
 const expect = require('chai').expect
 const forEach = require('lodash').forEach
 const through = require('through2')

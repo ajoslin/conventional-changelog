@@ -1,11 +1,5 @@
 'use strict'
 const expect = require('chai').expect
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
-const before = mocha.before
-const beforeEach = mocha.beforeEach
-const after = mocha.after
 const shell = require('shelljs')
 const spawn = require('child_process').spawn
 const fs = require('fs')

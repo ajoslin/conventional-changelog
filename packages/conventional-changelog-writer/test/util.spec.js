@@ -1,9 +1,6 @@
 'use strict'
 const util = require('../lib/util')
 const expect = require('chai').expect
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
 
 describe('util', function () {
   describe('compileTemplates', function () {

@@ -1,9 +1,5 @@
 'use strict'
 const expect = require('chai').expect
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
-const afterEach = mocha.afterEach
 const regex = require('../lib/regex')
 
 describe('regex', function () {

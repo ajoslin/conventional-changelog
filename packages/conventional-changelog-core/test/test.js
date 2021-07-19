@@ -1,9 +1,6 @@
 'use strict'
 const conventionalChangelogCore = require('../')
 const expect = require('chai').expect
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
 const gitTails = require('git-tails').sync
 const shell = require('shelljs')
 const gitDummyCommit = require('git-dummy-commit')

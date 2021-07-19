@@ -1,10 +1,6 @@
 'use strict'
 const conventionalChangelogCore = require('conventional-changelog-core')
 const config = require('../')
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
-const before = mocha.before
 const expect = require('chai').expect
 const shell = require('shelljs')
 const through = require('through2')
