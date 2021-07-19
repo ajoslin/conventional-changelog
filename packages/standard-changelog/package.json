@@ -30,7 +30,7 @@
     "chalk": "^4.0.0",
     "conventional-changelog-angular": "^5.0.12",
     "conventional-changelog-core": "^4.2.1",
-    "figures": "^3.0.0",
+    "figures": "^4.0.0",
     "fs-access": "^1.0.0",
     "lodash": "^4.17.15",
     "meow": "^8.0.0",
