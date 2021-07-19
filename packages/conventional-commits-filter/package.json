@@ -29,7 +29,7 @@
   ],
   "dependencies": {
     "lodash": "^4.17.15",
-    "modify-values": "^1.0.0"
+    "modify-values": "^2.0.0"
   },
   "scripts": {
     "test-windows": "mocha --timeout 30000"
