@@ -3,7 +3,6 @@
 const conventionalChangelogCore = require('conventional-changelog-core')
 const angular = require('conventional-changelog-angular')
 const fs = require('fs')
-const accessSync = require('fs-access').sync
 const chalk = require('chalk')
 const figures = require('figures')
 const sprintf = require('sprintf-js').sprintf
@@ -16,7 +15,7 @@ function conventionalChangelog (options, context, gitRawCommitsOpts, parserOpts,
 
 conventionalChangelog.createIfMissing = function (infile) {
   try {
-    accessSync(infile, fs.F_OK)
+    fs.accessSync(infile, fs.F_OK)
   } catch (err) {
     if (err.code === 'ENOENT') {
       conventionalChangelog.checkpoint('created %s', [infile])
