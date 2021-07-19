@@ -46,7 +46,13 @@ function presetLoader (requireMethod) {
       // rather than returning a promise, presets can return a builder function
       // which accepts a config object (allowing for customization) and returns
       // a promise.
-      if (config && !config.then && typeof path === 'object') {
+      if (config && !config.then) {
+        if (typeof path !== 'object') {
+          // the config builder function expects a config object,
+          // so if path is string, change that
+          path = {}
+        }
+
         return config(path)
       } else {
         // require returned a promise that resolves to a config object.

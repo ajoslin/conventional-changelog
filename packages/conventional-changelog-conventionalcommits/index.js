@@ -8,22 +8,22 @@ const writerOpts = require('./writer-opts')
 
 module.exports = function (parameter) {
   // parameter passed can be either a config object or a callback function
+  let config = parameter
+  let callback
+
   if (_.isFunction(parameter)) {
-    // parameter is a callback object
-    const config = {}
-    // FIXME: use presetOpts(config) for callback
-    Q.all([
-      conventionalChangelog(config),
-      parserOpts(config),
-      recommendedBumpOpts(config),
-      writerOpts(config)
-    ]).spread((conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts) => {
-      parameter(null, { gitRawCommitsOpts: { noMerges: null }, conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts })
-    })
-  } else {
-    const config = parameter || {}
-    return presetOpts(config)
+    // parameter is a callback function
+    config = {}
+    callback = parameter
   }
+
+  const options = presetOpts(config)
+
+  if (!callback) {
+    return options
+  }
+
+  callback(null, options)
 }
 
 function presetOpts (config) {
