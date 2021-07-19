@@ -6,7 +6,7 @@ const fs = require('fs')
 const accessSync = require('fs-access').sync
 const chalk = require('chalk')
 const figures = require('figures')
-const sprintf = require('sprintf-js').sprintf
+const format = require('util').format
 
 function conventionalChangelog (options, context, gitRawCommitsOpts, parserOpts, writerOpts) {
   options = options || {}
@@ -26,7 +26,7 @@ conventionalChangelog.createIfMissing = function (infile) {
 }
 
 conventionalChangelog.checkpoint = function (msg, args) {
-  console.info(chalk.green(figures.tick) + ' ' + sprintf(msg, args.map(function (arg) {
+  console.info(chalk.green(figures.tick) + ' ' + format(msg, ...args.map(function (arg) {
     return chalk.bold(arg)
   })))
 }
