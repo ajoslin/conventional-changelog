@@ -19,210 +19,211 @@ conventionalChangelogCore()
 
 ## API
 
-### conventionalChangelogCore([options, [context, [gitRawCommitsOpts, [parserOpts, [writerOpts]]]]])
-
+```js
+conventionalChangelogCore([options, [context, [gitRawCommitsOpts, [parserOpts, [writerOpts]]]]])
+```
 Returns a readable stream.
 
 *Note:* [`options.transform`](#transform-1), [`options.pkg.transform`](#transform) and [`writerOpts.transform`](https://github.com/conventional-changelog/conventional-changelog-writer#transform) are different. If you have a better naming suggestion, please send a PR.
 
-#### options
+### options
 
-##### config
+- #### config
 
-Type: `promise`, `function` or `object`
+  Type: `promise`, `function` or `object`
+  
+  This should serve as default values for other arguments of `conventionalChangelogCore` so you don't need to rewrite the same or similar config across your projects. Any value in this could be overwritten.
+  If this is a promise (recommended if async), it should resolve with the config.
+  If this is a function, it expects a node style callback with the config object.
+  If this is an object, it is the config object. The config object should include `context`, `gitRawCommitsOpts`, `parserOpts` and `writerOpts`.
 
-This should serve as default values for other arguments of `conventionalChangelogCore` so you don't need to rewrite the same or similar config across your projects. Any value in this could be overwritten.
-If this is a promise (recommended if async), it should resolve with the config.
-If this is a function, it expects a node style callback with the config object.
-If this is an object, it is the config object. The config object should include `context`, `gitRawCommitsOpts`, `parserOpts` and `writerOpts`.
+- #### pkg
 
-##### pkg
+  Type: `object`
 
-Type: `object`
+  - ##### path
 
-###### path
+    Type: `string` Default: [closest package.json](https://github.com/sindresorhus/read-pkg-up).
+    
+    The location of your "package.json".
 
-Type: `string` Default: [closest package.json](https://github.com/sindresorhus/read-pkg-up).
+  - ##### transform
 
-The location of your "package.json".
+    Type: `function` Default: pass through.
+    
+    A function that takes `package.json` data as the argument and returns the modified data. Note this is performed before normalizing package.json data. Useful when you need to add a leading 'v' to your version or modify your repository url, etc.
 
-###### transform
+- #### append
 
-Type: `function` Default: pass through.
+  Type: `boolean` Default: `false`
+  
+  Should the log be appended to existing data.
 
-A function that takes `package.json` data as the argument and returns the modified data. Note this is performed before normalizing package.json data. Useful when you need to add a leading 'v' to your version or modify your repository url, etc.
+- #### releaseCount
 
-##### append
+  Type: `number` Default: `1`
+  
+  How many releases of changelog you want to generate. It counts from the upcoming release. Useful when you forgot to generate any previous changelog. Set to `0` to regenerate all.
 
-Type: `boolean` Default: `false`
+- #### skipUnstable
 
-Should the log be appended to existing data.
+  Type: `boolean` Default: `false`
+  
+  If set, unstable release tags will be skipped, e.g., x.x.x-rc.
 
-##### releaseCount
+- #### debug
 
-Type: `number` Default: `1`
+  Type: `function` Default: `function() {}`
+  
+  A debug function. EG: `console.debug.bind(console)`
 
-How many releases of changelog you want to generate. It counts from the upcoming release. Useful when you forgot to generate any previous changelog. Set to `0` to regenerate all.
+- #### warn
 
-##### skipUnstable
+  Type: `function` Default: `options.debug`
+  
+  A warn function. EG: `grunt.verbose.writeln`
 
-Type: `boolean` Default: `false`
+- #### transform
 
-If set, unstable release tags will be skipped, e.g., x.x.x-rc.
+  Type: `function` Default: get the version (without leading 'v') from tag and format date.
 
-##### debug
+  - ##### function(commit, cb)
 
-Type: `function` Default: `function() {}`
+    A transform function that applies after the parser and before the writer.
+    
+    This is the place to modify the parsed commits.
 
-A debug function. EG: `console.debug.bind(console)`
+    - commit
+    
+      The commit from conventional-commits-parser.
+    
+    - cb
+    
+      Callback when you are done.
+    
+    - this
+    
+      `this` arg of through2.
 
-##### warn
+- #### outputUnreleased
 
-Type: `function` Default: `options.debug`
+  Type: `boolean` Default: `true` if a different version than last release is given. Otherwise `false`.
+  
+  If this value is `true` and `context.version` equals last release then `context.version` will be changed to `'Unreleased'`.
+  
+  **NOTE:** You may want to combine this option with `releaseCount` set to `0` to always overwrite the whole CHANGELOG. `conventional-changelog` only outputs a CHANGELOG but doesn't read any existing one.
 
-A warn function. EG: `grunt.verbose.writeln`
+- #### lernaPackage
 
-##### transform
+  Specify a package in lerna-style monorepo that the CHANGELOG should be generated for.
+  
+  Lerna tags releases in the format `foo-package@1.0.0` and assumes that packages
+  are stored in the directory structure `./packages/foo-package`.
 
-Type: `function` Default: get the version (without leading 'v') from tag and format date.
+- #### tagPrefix
 
-###### function(commit, cb)
+  Specify a prefix for the git tag that will be taken into account during the comparison.
+  For instance if your version tag is prefixed by `version/` instead of `v` you would specify `--tagPrefix=version/`
 
-A transform function that applies after the parser and before the writer.
+### context
 
-This is the place to modify the parsed commits.
+  See the [conventional-changelog-writer](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer) docs. There are some defaults or changes:
 
-####### commit
+- #### host
 
-The commit from conventional-commits-parser.
+  Default: normalized host found in `package.json`.
 
-####### cb
+- #### version
 
-Callback when you are done.
+  Default: version found in `package.json`.
 
-####### this
+- #### owner
 
-`this` arg of through2.
+  Default: extracted from normalized `package.json` `repository.url` field.
 
-##### outputUnreleased
+- #### repository
 
-Type: `boolean` Default: `true` if a different version than last release is given. Otherwise `false`.
+  Default: extracted from normalized `package.json` `repository.url` field.
 
-If this value is `true` and `context.version` equals last release then `context.version` will be changed to `'Unreleased'`.
+- #### repoUrl
 
-**NOTE:** You may want to combine this option with `releaseCount` set to `0` to always overwrite the whole CHANGELOG. `conventional-changelog` only outputs a CHANGELOG but doesn't read any existing one.
+  Default: The whole normalized repository url in `package.json`.
 
-##### lernaPackage
+- #### gitSemverTags
 
-Specify a package in lerna-style monorepo that the CHANGELOG should be generated for.
+  Type: `array`
+  
+  All git semver tags found in the repository. You can't overwrite this value.
 
-Lerna tags releases in the format `foo-package@1.0.0` and assumes that packages
-are stored in the directory structure `./packages/foo-package`.
+- #### previousTag
 
-##### tagPrefix
+  Type: `string` Default: previous semver tag or the first commit hash if no previous tag.
 
-Specify a prefix for the git tag that will be taken into account during the comparison.
-For instance if your version tag is prefixed by `version/` instead of `v` you would specify `--tagPrefix=version/`
+- #### currentTag
 
-#### context
+  Type: `string` Default: current semver tag or `'v'` + version if no current tag.
 
-See the [conventional-changelog-writer](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer) docs. There are some defaults or changes:
+- #### packageData
 
-##### host
+  Type: `object`
+  
+  Your `package.json` data. You can't overwrite this value.
 
-Default: normalized host found in `package.json`.
+- #### linkCompare
 
-##### version
+  Type: `boolean` Default: `true` if `previousTag` and `currentTag` are truthy.
+  
+  Should link to the page that compares current tag with previous tag?
 
-Default: version found in `package.json`.
+### gitRawCommitsOpts
 
-##### owner
+  See the [git-raw-commits](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-raw-commits) docs. There are some defaults:
 
-Default: extracted from normalized `package.json` `repository.url` field.
+- #### format
 
-##### repository
+  Default: `'%B%n-hash-%n%H%n-gitTags-%n%d%n-committerDate-%n%ci'`
 
-Default: extracted from normalized `package.json` `repository.url` field.
+- #### from
 
-##### repoUrl
+  Default: based on `options.releaseCount`.
 
-Default: The whole normalized repository url in `package.json`.
+- #### reverse
 
-##### gitSemverTags
+  Default: `true` if `options.append` is truthy.
 
-Type: `array`
+- #### debug
 
-All git semver tags found in the repository. You can't overwrite this value.
+  Type: `function` Default: `options.debug`
 
-##### previousTag
-
-Type: `string` Default: previous semver tag or the first commit hash if no previous tag.
-
-##### currentTag
-
-Type: `string` Default: current semver tag or `'v'` + version if no current tag.
-
-##### packageData
-
-Type: `object`
-
-Your `package.json` data. You can't overwrite this value.
-
-##### linkCompare
-
-Type: `boolean` Default: `true` if `previousTag` and `currentTag` are truthy.
-
-Should link to the page that compares current tag with previous tag?
-
-#### gitRawCommitsOpts
-
-See the [git-raw-commits](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-raw-commits) docs. There are some defaults:
-
-##### format
-
-Default: `'%B%n-hash-%n%H%n-gitTags-%n%d%n-committerDate-%n%ci'`
-
-##### from
-
-Default: based on `options.releaseCount`.
-
-##### reverse
-
-Default: `true` if `options.append` is truthy.
-
-##### debug
-
-Type: `function` Default: `options.debug`
-
-#### parserOpts
+### parserOpts
 
 See the [conventional-commits-parser](https://github.com/conventional-changelog/conventional-commits-parser) docs.
 
-##### warn
+- #### warn
 
-Default: `options.warn`
+  Default: `options.warn`
 
-#### writerOpts
+### writerOpts
 
 See the [conventional-changelog-writer](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer) docs. There are some defaults:
 
-##### finalizeContext
+- #### finalizeContext
 
-Finalize context is used for generating above context.
+  Finalize context is used for generating above context.
+  
+  **NOTE:** If you overwrite this value the above context defaults will be gone.
 
-**NOTE:** If you overwrite this value the above context defaults will be gone.
+- #### debug
 
-##### debug
+  Type: `function` Default: `options.debug`
 
-Type: `function` Default: `options.debug`
+- #### reverse
 
-##### reverse
+  Default: `options.append`
 
-Default: `options.append`
+- #### doFlush
 
-##### doFlush
-
-Default: `options.outputUnreleased`
+  Default: `options.outputUnreleased`
 
 
 ## Notes for parent modules
