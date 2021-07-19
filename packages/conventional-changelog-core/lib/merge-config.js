@@ -21,7 +21,7 @@ const rhosts = /github|bitbucket|gitlab/i
 
 function semverTagsPromise (options) {
   return Q.Promise(function (resolve, reject) {
-    gitSemverTags({ lernaTags: !!options.lernaPackage, package: options.lernaPackage, tagPrefix: options.tagPrefix, skipUnstable: options.skipUnstable }, function (err, result) {
+    gitSemverTags({ lernaTags: !!options.lernaPackage, package: options.lernaPackage, tagPrefix: options.tagPrefix, skipUnstable: options.skipUnstable, cwd: options.path }, function (err, result) {
       if (err) {
         reject(err)
       } else {
@@ -108,7 +108,7 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
     }
   }
 
-  const gitRemoteOriginUrlPromise = Q(gitRemoteOriginUrl())
+  const gitRemoteOriginUrlPromise = Q(gitRemoteOriginUrl(options.path))
 
   return Q.allSettled([configPromise, pkgPromise, semverTagsPromise(options), gitRemoteOriginUrlPromise])
     .spread(function (configObj, pkgObj, tagsObj, gitRemoteOriginUrlObj) {

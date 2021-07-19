@@ -29,7 +29,7 @@ function conventionalChangelog (options, context, gitRawCommitsOpts, parserOpts,
     return gitRawCommits(_.merge({}, gitRawCommitsOpts, {
       from: from,
       to: to
-    }))
+    }), gitRawExecOpts)
       .on('error', function (err) {
         if (!commitsErrorThrown) {
           setImmediate(commitsStream.emit.bind(commitsStream), 'error', err)

@@ -64,7 +64,8 @@ function conventionalRecommendedBump (optionsArgument, parserOptsArgument, cbArg
       lernaTags: !!options.lernaPackage,
       package: options.lernaPackage,
       tagPrefix: options.tagPrefix,
-      skipUnstable: options.skipUnstable
+      skipUnstable: options.skipUnstable,
+      cwd: options.path
     }, (err, tags) => {
       if (err) {
         return cb(err)
@@ -74,7 +75,7 @@ function conventionalRecommendedBump (optionsArgument, parserOptsArgument, cbArg
         format: '%B%n-hash-%n%H',
         from: tags[0] || '',
         path: options.path
-      })
+      }, { cwd: options.path })
         .pipe(conventionalCommitsParser(parserOpts))
         .pipe(concat(data => {
           const commits = options.ignoreReverted ? conventionalCommitsFilter(data) : data

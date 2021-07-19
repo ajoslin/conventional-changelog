@@ -3,7 +3,7 @@
 const conventionalChangelogCore = require('conventional-changelog-core')
 const conventionalChangelogPresetLoader = require('conventional-changelog-preset-loader')
 
-function conventionalChangelog (options, context, gitRawCommitsOpts, parserOpts, writerOpts) {
+function conventionalChangelog (options, context, gitRawCommitsOpts, parserOpts, writerOpts, gitRawExecOpts) {
   options.warn = options.warn || function () {}
 
   if (options.preset) {
@@ -20,7 +20,7 @@ function conventionalChangelog (options, context, gitRawCommitsOpts, parserOpts,
     }
   }
 
-  return conventionalChangelogCore(options, context, gitRawCommitsOpts, parserOpts, writerOpts)
+  return conventionalChangelogCore(options, context, gitRawCommitsOpts, parserOpts, writerOpts, gitRawExecOpts)
 }
 
 module.exports = conventionalChangelog

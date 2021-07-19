@@ -32,7 +32,7 @@ conventionalChangelog({config})
 
 ## API
 
-### conventionalChangelog([options, [context, [gitRawCommitsOpts, [parserOpts, [writerOpts]]]]])
+### conventionalChangelog([options, [context, [gitRawCommitsOpts, [parserOpts, [writerOpts, [gitRawExecOpts]]]]]])
 
 Returns a readable stream.
 

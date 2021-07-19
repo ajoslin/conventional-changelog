@@ -19,7 +19,7 @@ conventionalChangelogCore()
 
 ## API
 
-### conventionalChangelogCore([options, [context, [gitRawCommitsOpts, [parserOpts, [writerOpts]]]]])
+### conventionalChangelogCore([options, [context, [gitRawCommitsOpts, [parserOpts, [writerOpts, [gitRawExecOpts]]]]]])
 
 Returns a readable stream.
 
@@ -34,7 +34,7 @@ Type: `promise`, `function` or `object`
 This should serve as default values for other arguments of `conventionalChangelogCore` so you don't need to rewrite the same or similar config across your projects. Any value in this could be overwritten.
 If this is a promise (recommended if async), it should resolve with the config.
 If this is a function, it expects a node style callback with the config object.
-If this is an object, it is the config object. The config object should include `context`, `gitRawCommitsOpts`, `parserOpts` and `writerOpts`.
+If this is an object, it is the config object. The config object should include `context`, `gitRawCommitsOpts`, `parserOpts`, `writerOpts` and `gitRawExecOpts`.
 
 ##### pkg
 
@@ -223,6 +223,14 @@ Default: `options.append`
 ##### doFlush
 
 Default: `options.outputUnreleased`
+
+#### gitRawExecOpts
+
+See the [git-raw-commits](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-raw-commits) docs. There are some defaults:
+
+##### cwd
+
+Default: `process.cwd()`
 
 
 ## Notes for parent modules
