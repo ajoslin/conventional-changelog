@@ -4,7 +4,6 @@ const mocha = require('mocha')
 const describe = mocha.describe
 const it = mocha.it
 const beforeEach = mocha.beforeEach
-const _ = require('lodash')
 const parser = require('../lib/parser')
 const regex = require('../lib/regex')
 
@@ -221,7 +220,7 @@ describe('parser', function () {
   })
 
   it('should ignore comments according to commentChar', function () {
-    const commentOptions = _.assign({}, options, { commentChar: '#' })
+    const commentOptions = Object.assign({}, options, { commentChar: '#' })
 
     expect(parser('# comment', commentOptions, reg)).to.eql({
       merge: null,
@@ -267,7 +266,7 @@ describe('parser', function () {
   })
 
   it('should respect commentChar config', function () {
-    const commentOptions = _.assign({}, options, { commentChar: '*' })
+    const commentOptions = Object.assign({}, options, { commentChar: '*' })
 
     expect(parser('* comment', commentOptions, reg)).to.eql({
       merge: null,

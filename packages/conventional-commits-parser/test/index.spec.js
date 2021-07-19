@@ -4,7 +4,7 @@ const mocha = require('mocha')
 const describe = mocha.describe
 const it = mocha.it
 const expect = require('chai').expect
-const forEach = require('lodash').forEach
+const forEach = require('lodash/forEach')
 const through = require('through2')
 
 describe('conventionalCommitsParser', function () {

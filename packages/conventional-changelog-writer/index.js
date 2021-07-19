@@ -19,7 +19,7 @@ function conventionalChangelogWriterInit (context, options) {
     context.linkReferences = true
   }
 
-  options = _.assign({
+  options = Object.assign({
     groupBy: 'type',
     commitsSort: 'header',
     noteGroupsSort: 'title',
@@ -42,7 +42,7 @@ function conventionalChangelogWriterInit (context, options) {
   }, options)
 
   if ((!_.isFunction(options.transform) && _.isObject(options.transform)) || _.isUndefined(options.transform)) {
-    options.transform = _.assign({
+    options.transform = Object.assign({
       hash: function (hash) {
         if (_.isString(hash)) {
           return hash.substring(0, 7)

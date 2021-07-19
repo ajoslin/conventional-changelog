@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict'
 const conventionalChangelogWriter = require('./')
-const forEach = require('lodash').forEach
+const forEach = require('lodash/forEach')
 const fs = require('fs')
 const meow = require('meow')
 const path = require('path')

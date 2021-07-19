@@ -132,7 +132,7 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
         config = {}
       }
 
-      context = _.assign(context, config.context)
+      context = Object.assign(context, config.context)
 
       if (options.pkg) {
         if (pkgObj.state === 'fulfilled') {
@@ -221,7 +221,7 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
         if (type) {
           hostOpts = require('../hosts/' + type)
 
-          context = _.assign({
+          context = Object.assign({
             issue: hostOpts.issue,
             commit: hostOpts.commit
           }, context)
@@ -237,7 +237,7 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
         fromTag = null
       }
 
-      gitRawCommitsOpts = _.assign({
+      gitRawCommitsOpts = Object.assign({
         format: '%B%n-hash-%n%H%n-gitTags-%n%d%n-committerDate-%n%ci',
         from: fromTag,
         merges: false,
@@ -251,7 +251,7 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
         gitRawCommitsOpts.reverse = gitRawCommitsOpts.reverse || true
       }
 
-      parserOpts = _.assign(
+      parserOpts = Object.assign(
         {}, config.parserOpts, {
           warn: options.warn
         },
@@ -265,7 +265,7 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
         parserOpts.issuePrefixes = hostOpts.issuePrefixes
       }
 
-      writerOpts = _.assign({
+      writerOpts = Object.assign({
         finalizeContext: function (context, writerOpts, filteredCommits, keyCommit, originalCommits) {
           const firstCommit = originalCommits[0]
           const lastCommit = originalCommits[originalCommits.length - 1]

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict'
 const conventionalCommitsParser = require('./')
-const forEach = require('lodash').forEach
+const forEach = require('lodash/forEach')
 const fs = require('fs')
 const isTextPath = require('is-text-path')
 const JSONStream = require('JSONStream')
