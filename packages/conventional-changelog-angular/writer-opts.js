@@ -80,7 +80,13 @@ function getWriterOpts () {
         if (context.host) {
           // User URLs.
           commit.subject = commit.subject.replace(/\B@([a-z0-9](?:-?[a-z0-9/]){0,38})/g, (_, username) => {
-            if (username.includes('/')) {
+            const splitSubject = commit.subject.split(`@${username}`)
+
+            // Check if there is an odd number of occurrences of the char "`" before and after the username.
+            // If so, that means the username is a piece of code
+            // Check also if there is a "/" in the username. If so, this is package and not a user
+            if (((splitSubject[0].match(/`/g) || []).length % 2 !== 0 && (splitSubject[1].match(/`/g) || []).length % 2 !== 0) ||
+              username.includes('/')) {
               return `@${username}`
             }
 

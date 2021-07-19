@@ -57,6 +57,9 @@ betterThanBefore.setups([
   function () {
     gitDummyCommit(['fix: use npm@5 (@username)'])
     gitDummyCommit(['build(deps): bump @dummy/package from 7.1.2 to 8.0.0', 'BREAKING CHANGE: The Change is huge.'])
+    gitDummyCommit(['fix: remove \\`@internal\\` in comments of property'])
+    gitDummyCommit(['fix(test): fix \\`code example\\` by @dlmr'])
+    gitDummyCommit(['feat: adding support for \\` by @superitman!'])
   },
   function () {
     gitDummyCommit(['Revert \\"feat: default revert format\\"', 'This reverts commit 1234.'])
@@ -324,6 +327,12 @@ describe('angular preset', function () {
 
         expect(chunk).to.not.include('(https://github.com/5')
         expect(chunk).to.include('(https://github.com/username')
+        expect(chunk).to.include('(https://github.com/dlmr)')
+        expect(chunk).to.include('(https://github.com/superitman)')
+        expect(chunk).to.match(/adding support for (\\)?` by \[@superitman\]/)
+
+        expect(chunk).to.not.include('(https://github.com/internal')
+        expect(chunk).to.match(/remove (\\)?`@internal(\\)?` in comments/)
 
         expect(chunk).to.not.include('[@dummy](https://github.com/dummy)/package')
         expect(chunk).to.include('bump @dummy/package from')
