@@ -25,7 +25,7 @@ const cli = meow(`
       -s, --same-file           Outputting to the infile so you don't need to specify the same file as outfile
 
       -p, --preset              Name of the preset you want to use. Must be one of the following:
-                                angular, atom, codemirror, ember, eslint, express, jquery, jscs or jshint
+                                angular, atom, codemirror, conventionalcommits, ember, eslint, express, jquery, jscs or jshint
 
       -k, --pkg                 A filepath of where your package.json is located
                                 Default is the closest package.json from cwd
