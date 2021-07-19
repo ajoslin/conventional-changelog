@@ -93,7 +93,7 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
   options.warn = options.warn || options.debug
 
   if (options.config) {
-    if (_.isFunction(options.config)) {
+    if (typeof options.config === 'function') {
       configPromise = Q.nfcall(options.config)
     } else {
       configPromise = Q(options.config)

@@ -36,7 +36,7 @@ function compileTemplates (templates) {
 }
 
 function functionify (strOrArr) {
-  if (strOrArr && !_.isFunction(strOrArr)) {
+  if (strOrArr && typeof strOrArr !== 'function') {
     return (a, b) => {
       let str1 = ''
       let str2 = ''
@@ -129,7 +129,7 @@ function processCommit (chunk, transform, context) {
 
   commit = _.cloneDeep(chunk)
 
-  if (_.isFunction(transform)) {
+  if (typeof transform === 'function') {
     commit = transform(commit, context)
 
     if (commit) {
@@ -142,7 +142,7 @@ function processCommit (chunk, transform, context) {
   _.forEach(transform, function (el, path) {
     let value = _.get(commit, path)
 
-    if (_.isFunction(el)) {
+    if (typeof el === 'function') {
       value = el(value, path)
     } else {
       value = el

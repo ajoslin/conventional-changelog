@@ -41,7 +41,7 @@ function conventionalChangelogWriterInit (context, options) {
     footerPartial: readFileSync(join(__dirname, 'templates/footer.hbs'), 'utf-8')
   }, options)
 
-  if ((!_.isFunction(options.transform) && _.isObject(options.transform)) || _.isUndefined(options.transform)) {
+  if ((typeof options.transform !== 'function' && _.isObject(options.transform)) || _.isUndefined(options.transform)) {
     options.transform = _.assign({
       hash: function (hash) {
         if (_.isString(hash)) {
@@ -66,7 +66,7 @@ function conventionalChangelogWriterInit (context, options) {
     generateOn = function (commit) {
       return !_.isUndefined(commit[options.generateOn])
     }
-  } else if (!_.isFunction(generateOn)) {
+  } else if (typeof generateOn !== 'function') {
     generateOn = function () {
       return false
     }
