@@ -62,6 +62,10 @@ function gitRawCommits (rawGitOpts, rawExecOpts) {
   child.stdout
     .pipe(split(DELIMITER + '\n'))
     .pipe(through(function (chunk, enc, cb) {
+      if (isError) {
+        return cb()
+      }
+
       readable.push(chunk)
       isError = false
 

@@ -11,6 +11,8 @@ const shell = require('shelljs')
 const temp = require('temp')
 
 const preparing = betterThanBefore.preparing
+const tearsWithJoy = betterThanBefore.tearsWithJoy
+
 shell.config.silent = true
 
 betterThanBefore.setups([
@@ -45,7 +47,21 @@ betterThanBefore.setups([
   }
 ])
 
+tearsWithJoy(() => {
+  // do nothing, cleanup is built-in into setups
+})
+
 describe('conventional-recommended-bump API', () => {
+  // placing this test 1st so tearsWithJoy could clean-up extra branch setup
+  it('should work if there is a branch of the same name as a tag', (done) => {
+    preparing(4)
+    shell.exec('git branch v1.0.0')
+    conventionalRecommendedBump({}, {}, (err) => {
+      assert.ok(err === null)
+      done()
+    })
+  })
+
   describe('options object', () => {
     it('should throw an error if an \'options\' object is not provided', done => {
       assert.throws(() => conventionalRecommendedBump())
