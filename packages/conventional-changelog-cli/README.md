@@ -6,7 +6,7 @@
 
 *[Changelog?](https://speakerdeck.com/stevemao/compose-a-changelog)*
 
-**Note** You don't have to use the angular commit convention. For the best result of the tool to tokenize you commit and produce flexible output, it's recommended to use a commit convention.
+**Note** You don't have to use the angular commit convention. For the best result of the tool to tokenize your commit and produce flexible output, it's recommended to use a commit convention.
 
 
 ## Quick start
@@ -17,7 +17,7 @@ $ cd my-project
 $ conventional-changelog -p angular -i CHANGELOG.md -s
 ```
 
-This will *not* overwrite any previous changelogs. The above generates a changelog based on commits since the last semver tag that matches the pattern of "Feature", "Fix", "Performance Improvement" or "Breaking Changes".
+This will *not* overwrite any previous changelogs. The above generates a changelog based on commits since the last [SemVer](https://semver.org) tag that matches the pattern of "Feature", "Fix", "Performance Improvement" or "Breaking Changes".
 
 If this is your first time using this tool and you want to generate all previous changelogs, you could do
 
@@ -75,7 +75,7 @@ You could follow the following workflow
 1. Run the [`npm version [patch|minor|major]`](https://docs.npmjs.com/cli/version) command
 1. Push
 
-You could optionally add a `preversion` script to package your project or running a full suit of test.
+You could optionally add a `preversion` script to package your project or running a full suite of tests.
 And a `postversion` script to clean your system and push your release and tags.
 
 By adding a `.npmrc` you could also automate your commit message and set your tag prefix as such:
