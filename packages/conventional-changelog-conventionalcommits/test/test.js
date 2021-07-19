@@ -206,6 +206,30 @@ describe('conventionalcommits.org preset', function () {
       }))
   })
 
+  it('should allow omit the scope', function (done) {
+    preparing(1)
+    conventionalChangelogCore({
+      config: require('../')({
+        types: [
+          { type: 'chore', scope: 'deps', section: 'Dependencies', omitScope: true }
+        ]
+      })
+    })
+      .on('error', function (err) {
+        done(err)
+      })
+      .pipe(through(function (chunk) {
+        chunk = chunk.toString()
+
+        expect(chunk).to.include('### Dependencies')
+        expect(chunk).to.include('upgrade example from 1 to 2')
+
+        expect(chunk).to.not.include('**deps:** upgrade example from 1 to 2')
+        expect(chunk).to.not.include('release 0.0.0')
+        done()
+      }))
+  })
+
   it('should properly format external repository issues', function (done) {
     preparing(1)
     conventionalChangelogCore({

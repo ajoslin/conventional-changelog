@@ -98,7 +98,12 @@ function getWriterOpts (config) {
       if (discard && (entry === undefined ||
           entry.hidden)) return
 
-      if (entry) commit.type = entry.section
+      if (entry) {
+        commit.type = entry.section
+        if (entry.omitScope) {
+          commit.scope = ''
+        }
+      }
 
       if (commit.scope === '*') {
         commit.scope = ''
