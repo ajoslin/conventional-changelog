@@ -1,7 +1,6 @@
 'use strict'
 
 const addStream = require('add-stream')
-const assign = require('object-assign')
 const concat = require('concat-stream')
 const conventionalChangelog = require('conventional-changelog')
 const PluginError = require('plugin-error')
@@ -9,7 +8,7 @@ const fancyLog = require('fancy-log')
 const through = require('through2')
 
 module.exports = function (opts, context, gitRawCommitsOpts, parserOpts, writerOpts) {
-  opts = assign({
+  opts = Object.assign({
     // TODO: remove this when gulp get's a real logger with levels
     verbose: process.argv.indexOf('--verbose') !== -1
   }, opts)
