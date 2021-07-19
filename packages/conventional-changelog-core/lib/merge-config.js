@@ -240,7 +240,7 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
       gitRawCommitsOpts = _.assign({
         format: '%B%n-hash-%n%H%n-gitTags-%n%d%n-committerDate-%n%ci',
         from: fromTag,
-        merges: false,
+        merges: options.merges === null ? null : options.merges === true ? true : false,
         debug: options.debug
       },
       config.gitRawCommitsOpts,
