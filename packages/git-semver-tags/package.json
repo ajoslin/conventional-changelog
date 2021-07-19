@@ -32,7 +32,7 @@
     "git"
   ],
   "dependencies": {
-    "meow": "^8.0.0",
+    "meow": "^10.0.0",
     "semver": "^6.0.0"
   },
   "scripts": {

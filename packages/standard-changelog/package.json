@@ -33,7 +33,7 @@
     "figures": "^3.0.0",
     "fs-access": "^1.0.0",
     "lodash": "^4.17.15",
-    "meow": "^8.0.0",
+    "meow": "^10.0.0",
     "rimraf": "^3.0.0",
     "sprintf-js": "^1.1.1",
     "tempfile": "^3.0.0"

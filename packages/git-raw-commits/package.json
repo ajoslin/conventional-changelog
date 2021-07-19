@@ -35,7 +35,7 @@
   "dependencies": {
     "dargs": "^7.0.0",
     "lodash": "^4.17.15",
-    "meow": "^8.0.0",
+    "meow": "^10.0.0",
     "split2": "^3.0.0",
     "through2": "^4.0.0"
   },

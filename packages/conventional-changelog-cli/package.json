@@ -36,7 +36,7 @@
     "add-stream": "^1.0.0",
     "conventional-changelog": "^3.1.24",
     "lodash": "^4.17.15",
-    "meow": "^8.0.0",
+    "meow": "^10.0.0",
     "tempfile": "^3.0.0"
   },
   "scripts": {
