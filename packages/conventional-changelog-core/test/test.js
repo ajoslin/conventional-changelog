@@ -8,7 +8,6 @@ const gitTails = require('git-tails').sync
 const shell = require('shelljs')
 const gitDummyCommit = require('git-dummy-commit')
 const through = require('through2')
-const Promise = require('pinkie-promise')
 const semver = require('semver')
 const betterThanBefore = require('better-than-before')()
 const preparing = betterThanBefore.preparing
