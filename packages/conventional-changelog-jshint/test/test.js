@@ -1,30 +1,28 @@
 'use strict'
 const conventionalChangelogCore = require('conventional-changelog-core')
 const config = require('../')
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
-const before = mocha.before
 const expect = require('chai').expect
-const gitDummyCommit = require('git-dummy-commit')
-const shell = require('shelljs')
 const through = require('through2')
+const tmp = require('tmp')
+const { gitInit, gitDummyCommit } = require('../../../tools/test-tools')
+
+tmp.setGracefulCleanup()
+const oldDir = process.cwd()
 
 describe('jshint preset', function () {
-  before(function (done) {
-    shell.config.resetForTesting()
-    shell.cd(__dirname)
-    shell.rm('-rf', 'tmp')
-    shell.mkdir('tmp')
-    shell.cd('tmp')
-    shell.mkdir('git-templates')
-    shell.exec('git init --template=./git-templates')
+  before(() => {
+    const tmpDir = tmp.dirSync()
+    process.chdir(tmpDir.name)
+    gitInit()
     gitDummyCommit(['[[Chore]] Move scope-manager to external file'])
     gitDummyCommit(['[[Test]] Add test for gh-985. Fixes #985'])
     gitDummyCommit(['[[FIX]] catch params are scoped to the catch only'])
     gitDummyCommit(['[[Fix]] accidentally use lower-case'])
     gitDummyCommit(['[[FEAT]] Option to assume strict mode', '', 'BREAKING CHANGE: Not backward compatible.'])
-    done()
+  })
+
+  after(() => {
+    process.chdir(oldDir)
   })
 
   it('should work if there is no semver tag', function (done) {

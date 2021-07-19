@@ -2,25 +2,26 @@
 const conventionalChangelogCore = require('conventional-changelog-core')
 const preset = require('../')
 const expect = require('chai').expect
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
-const gitDummyCommit = require('git-dummy-commit')
-const shell = require('shelljs')
 const through = require('through2')
 const path = require('path')
+const fs = require('fs')
+const tmp = require('tmp')
+const { gitInit, gitDummyCommit, exec } = require('../../../tools/test-tools')
 const betterThanBefore = require('better-than-before')()
 const preparing = betterThanBefore.preparing
 
 betterThanBefore.setups([
   function () {
-    shell.config.resetForTesting()
-    shell.cd(__dirname)
-    shell.rm('-rf', 'tmp')
-    shell.mkdir('tmp')
-    shell.cd('tmp')
-    shell.mkdir('git-templates')
-    shell.exec('git init --template=./git-templates')
+    const tmpDir = tmp.dirSync()
+    process.chdir(tmpDir.name)
+    gitInit()
+    fs.writeFileSync('./package.json', JSON.stringify({
+      name: 'conventional-changelog-core',
+      repository: {
+        type: 'git',
+        url: 'https://github.com/conventional-changelog/conventional-changelog.git'
+      }
+    }))
 
     gitDummyCommit(['build: first build setup', 'BREAKING CHANGE: New build system.'])
     gitDummyCommit(['ci(travis): add TravisCI pipeline', 'BREAKING CHANGE: Continuously integrated.'])
@@ -48,7 +49,7 @@ betterThanBefore.setups([
     gitDummyCommit(['test(*): more tests', 'BREAKING CHANGE: The Change is huge.'])
   },
   function () {
-    shell.exec('git tag v1.0.0')
+    exec('git tag v1.0.0')
     gitDummyCommit('feat: some more features')
   },
   function () {

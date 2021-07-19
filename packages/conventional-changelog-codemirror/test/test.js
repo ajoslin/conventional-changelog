@@ -1,35 +1,34 @@
 'use strict'
 const conventionalChangelogCore = require('conventional-changelog-core')
 const config = require('../')
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
-const before = mocha.before
 const expect = require('chai').expect
-const shell = require('shelljs')
 const through = require('through2')
-const writeFileSync = require('fs').writeFileSync
+const fs = require('fs')
+const tmp = require('tmp')
+const { gitInit, exec } = require('../../../tools/test-tools')
+
+tmp.setGracefulCleanup()
+const oldDir = process.cwd()
 
 describe('codemirror preset', function () {
-  before(function () {
-    shell.config.resetForTesting()
-    shell.cd(__dirname)
-    shell.rm('-rf', 'tmp')
-    shell.mkdir('tmp')
-    shell.cd('tmp')
-    shell.mkdir('git-templates')
-    shell.exec('git init --template=./git-templates')
+  before(() => {
+    const tmpDir = tmp.dirSync()
+    process.chdir(tmpDir.name)
+    gitInit()
+    fs.writeFileSync('test1', '')
+    exec('git add --all && git commit -m"[tern addon] Use correct primary when selecting variables"')
+    fs.writeFileSync('test2', '')
+    exec('git add --all && git commit -m"[tern addon] Fix patch bc026f1 "')
+    fs.writeFileSync('test3', '')
+    exec('git add --all && git commit -m"[css mode] Add values for property flex-direction"')
+    fs.writeFileSync('test4', '')
+    exec('git add --all && git commit -m"[stylus mode] Fix highlight class after a $var"')
+    fs.writeFileSync('test5', '')
+    exec('git add --all && git commit -m"Bad commit"')
+  })
 
-    writeFileSync('test1', '')
-    shell.exec('git add --all && git commit -m"[tern addon] Use correct primary when selecting variables"')
-    writeFileSync('test2', '')
-    shell.exec('git add --all && git commit -m"[tern addon] Fix patch bc026f1 "')
-    writeFileSync('test3', '')
-    shell.exec('git add --all && git commit -m"[css mode] Add values for property flex-direction"')
-    writeFileSync('test4', '')
-    shell.exec('git add --all && git commit -m"[stylus mode] Fix highlight class after a $var"')
-    writeFileSync('test5', '')
-    shell.exec('git add --all && git commit -m"Bad commit"')
+  after(() => {
+    process.chdir(oldDir)
   })
 
   it('should work if there is no semver tag', function (done) {

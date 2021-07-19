@@ -1,30 +1,37 @@
 'use strict'
 const conventionalChangelogCore = require('conventional-changelog-core')
 const config = require('../')
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
-const before = mocha.before
 const expect = require('chai').expect
-const gitDummyCommit = require('git-dummy-commit')
-const shell = require('shelljs')
 const through = require('through2')
+const tmp = require('tmp')
+const fs = require('fs')
+const { gitInit, gitDummyCommit } = require('../../../tools/test-tools')
+
+tmp.setGracefulCleanup()
+const oldDir = process.cwd()
 
 describe('jquery preset', function () {
-  before(function () {
-    shell.config.resetForTesting()
-    shell.cd(__dirname)
-    shell.rm('-rf', 'tmp')
-    shell.mkdir('tmp')
-    shell.cd('tmp')
-    shell.mkdir('git-templates')
-    shell.exec('git init --template=./git-templates')
+  before(() => {
+    const tmpDir = tmp.dirSync()
+    process.chdir(tmpDir.name)
+    gitInit()
+    fs.writeFileSync('package.json', JSON.stringify({
+      name: 'conventional-changelog-core',
+      repository: {
+        type: 'git',
+        url: 'https://github.com/conventional-changelog/conventional-changelog.git'
+      }
+    }))
     gitDummyCommit(['Core: Make jQuery objects iterable'])
     gitDummyCommit(['CSS: Don\'t name the anonymous swap function'])
     gitDummyCommit(['Event: Remove an internal argument to the on method', 'Fixes #2, #4, gh-200'])
     gitDummyCommit(['Manipulation: Remove an internal argument to the remove method', 'Closes #22'])
     gitDummyCommit(['Bad commit'])
     gitDummyCommit(['Core: Create jQuery.ajax', 'Closes gh-100'])
+  })
+
+  after(() => {
+    process.chdir(oldDir)
   })
 
   it('should generate a changelog', function (done) {

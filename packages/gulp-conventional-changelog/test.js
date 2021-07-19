@@ -2,25 +2,26 @@
 const concat = require('concat-stream')
 const conventionalChangelog = require('./')
 const expect = require('chai').expect
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
-const before = mocha.before
 const Vinyl = require('vinyl')
 const join = require('path').join
-const shell = require('shelljs')
 const through = require('through2')
-const writeFileSync = require('fs').writeFileSync
 const Buffer = require('safe-buffer').Buffer
+const writeFileSync = require('fs').writeFileSync
+const tmp = require('tmp')
+const { gitInit, exec } = require('../../tools/test-tools')
+
+tmp.setGracefulCleanup()
+const oldDir = process.cwd()
 
 describe('gulp-conventional-changelog', function () {
-  before(function () {
-    shell.config.resetForTesting()
-    shell.cd(__dirname)
-    shell.rm('-rf', 'tmp')
-    shell.mkdir('tmp')
-    shell.cd('tmp')
-    shell.exec('git init')
+  before(() => {
+    const tmpDir = tmp.dirSync()
+    process.chdir(tmpDir.name)
+    gitInit()
+  })
+
+  after(() => {
+    process.chdir(oldDir)
   })
 
   describe('error', function () {
@@ -52,7 +53,7 @@ describe('gulp-conventional-changelog', function () {
   describe('stream', function () {
     before(function (done) {
       writeFileSync('test1', '')
-      shell.exec('git add --all && git commit -m"feat(module): amazing new module"')
+      exec('git add --all && git commit -m"feat(module): amazing new module"')
 
       done()
     })
@@ -206,7 +207,7 @@ describe('gulp-conventional-changelog', function () {
     })
 
     it('output encoding should always be buffer', function (cb) {
-      shell.exec('git tag v0.0.0')
+      exec('git tag v0.0.0')
       const stream = conventionalChangelog({
         preset: 'angular'
       }, {

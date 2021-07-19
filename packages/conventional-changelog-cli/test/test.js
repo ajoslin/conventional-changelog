@@ -1,15 +1,11 @@
 'use strict'
 const concat = require('concat-stream')
 const expect = require('chai').expect
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
-const before = mocha.before
-const after = mocha.after
-const shell = require('shelljs')
 const spawn = require('child_process').spawn
 const fs = require('fs')
 const path = require('path')
+const rimraf = require('rimraf')
+const { gitInit, exec } = require('../../../tools/test-tools')
 const readFileSync = fs.readFileSync
 const writeFileSync = fs.writeFileSync
 
@@ -21,15 +17,13 @@ function originalChangelog () {
 
 describe('cli', function () {
   before(function () {
-    shell.config.resetForTesting()
-    shell.cd(__dirname)
-    shell.rm('-rf', 'tmp')
-    shell.mkdir('tmp')
-    shell.cd('tmp')
-    shell.mkdir('git-templates')
-    shell.exec('git init --template=./git-templates')
+    process.chdir(__dirname)
+    rimraf.sync('tmp')
+    fs.mkdirSync('tmp')
+    process.chdir('tmp')
+    gitInit()
     writeFileSync('test1', '')
-    shell.exec('git add --all && git commit -m"First commit"')
+    exec('git add --all && git commit -m"First commit"')
   })
 
   after(function () {
@@ -356,7 +350,7 @@ describe('cli', function () {
 
   it('--preset should work', function (done) {
     writeFileSync('angular', '')
-    shell.exec('git add --all && git commit -m"fix: fix it!"')
+    exec('git add --all && git commit -m"fix: fix it!"')
     const cp = spawn(process.execPath, [cliPath, '--preset', 'angular'], {
       stdio: [process.stdin, null, null]
     })
@@ -368,8 +362,8 @@ describe('cli', function () {
       }))
   })
   it('--preset "conventionalcommits" should work', function (done) {
-    writeFileSync('angular', '')
-    shell.exec('git add --all && git commit -m"fix: fix it!"')
+    writeFileSync('angular', '2')
+    exec('git add --all && git commit -m"fix: fix it!"')
     const cp = spawn(process.execPath, [cliPath, '--preset', 'conventionalcommits'], {
       stdio: [process.stdin, null, null]
     })

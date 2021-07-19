@@ -1,48 +1,47 @@
 'use strict'
 const conventionalChangelogCore = require('../')
 const expect = require('chai').expect
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
 const gitTails = require('git-tails').sync
-const shell = require('shelljs')
-const gitDummyCommit = require('git-dummy-commit')
 const through = require('through2')
 const Promise = require('pinkie-promise')
 const semver = require('semver')
 const betterThanBefore = require('better-than-before')()
 const preparing = betterThanBefore.preparing
-const mkdirp = require('mkdirp')
-const writeFileSync = require('fs').writeFileSync
+const fs = require('fs')
+const writeFileSync = fs.writeFileSync
 const path = require('path')
 const tmp = require('tmp')
+const rimraf = require('rimraf')
+const { gitInit, gitDummyCommit, exec } = require('../../../tools/test-tools')
 
 let dir = ''
 
 betterThanBefore.setups([
   function () { // 1
-    shell.config.resetForTesting()
-    shell.cd(__dirname)
     dir = process.cwd()
-    const tmpDir = tmp.dirSync().name
-    shell.mkdir(tmpDir)
-    shell.cd(tmpDir)
-    shell.mkdir('git-templates')
-    shell.exec('git init --initial-branch master --template=./git-templates')
-    writeFileSync('package.json', '{ "name": "conventional-changelog-core", "repository": { "type": "git", "url": "https://github.com/conventional-changelog/conventional-changelog-core.git" } }')
+    const tmpDir = tmp.dirSync()
+    process.chdir(tmpDir.name)
+    gitInit()
+    fs.writeFileSync('package.json', JSON.stringify({
+      name: 'conventional-changelog-core',
+      repository: {
+        type: 'git',
+        url: 'https://github.com/conventional-changelog/conventional-changelog-core.git'
+      }
+    }))
     gitDummyCommit('First commit')
   },
   function () { // 2
-    shell.exec('git tag v0.1.0')
+    exec('git tag v0.1.0')
     gitDummyCommit('Second commit')
     gitDummyCommit('Third commit closes #1')
   },
   function () { // 3
-    shell.exec('git checkout -b feature')
+    exec('git checkout -b feature')
     gitDummyCommit('This commit is from feature branch')
-    shell.exec('git checkout master')
+    exec('git checkout master')
     gitDummyCommit('This commit is from master branch')
-    shell.exec('git merge feature -m"Merge branch \'feature\'"')
+    exec('git merge feature -m"Merge branch \'feature\'"')
   },
   function () { // 4
     gitDummyCommit('Custom prefix closes @42')
@@ -53,7 +52,7 @@ betterThanBefore.setups([
   },
   function () { // 6
     gitDummyCommit('some more features')
-    shell.exec('git tag v2.0.0')
+    exec('git tag v2.0.0')
   },
   function () { // 7
     gitDummyCommit('test8')
@@ -65,28 +64,28 @@ betterThanBefore.setups([
     gitDummyCommit(['test9', 'Release note: super release!'])
   },
   function () { // 10
-    shell.exec('git remote add origin https://github.com/user/repo.git')
+    exec('git remote add origin https://github.com/user/repo.git')
   },
   function (context) { // 11
-    shell.exec('git tag -d v0.1.0')
+    exec('git tag -d v0.1.0')
     const tails = gitTails()
     context.tail = tails[tails.length - 1].substring(0, 7)
   },
   function (context) { // 12
-    shell.exec('git tag not-semver')
+    exec('git tag not-semver')
     gitDummyCommit()
 
-    const head = shell.exec('git rev-parse HEAD').stdout.trim()
+    const head = exec('git rev-parse HEAD').trim()
     gitDummyCommit('Revert \\"test9\\" This reverts commit ' + head + '.')
-    context.head = shell.exec('git rev-parse HEAD').stdout.substring(0, 7)
+    context.head = exec('git rev-parse HEAD').substring(0, 7)
   },
   function (context) { // 13
     const tail = context.tail
-    shell.exec('git tag v0.0.1 ' + tail)
+    exec('git tag v0.0.1 ' + tail)
   },
   function () { // 14
     gitDummyCommit()
-    shell.exec('git tag v1.0.0')
+    exec('git tag v1.0.0')
   },
   function () { // 15
     gitDummyCommit()
@@ -94,42 +93,42 @@ betterThanBefore.setups([
   },
   function () { // 16
     writeFileSync('./package.json', '{"version": "2.0.0"}') // required by angular preset.
-    shell.exec('git tag foo@1.0.0')
-    mkdirp.sync('./packages/foo')
+    exec('git tag foo@1.0.0')
+    fs.mkdirSync('./packages/foo', { recursive: true })
     writeFileSync('./packages/foo/test1', '')
-    shell.exec('git add --all && git commit -m"feat: first lerna style commit hooray"')
-    mkdirp.sync('./packages/bar')
+    exec('git add --all && git commit -m"feat: first lerna style commit hooray"')
+    fs.mkdirSync('./packages/bar', { recursive: true })
     writeFileSync('./packages/bar/test1', '')
-    shell.exec('git add --all && git commit -m"feat: another lerna package, this should be skipped"')
+    exec('git add --all && git commit -m"feat: another lerna package, this should be skipped"')
   },
   function () { // 17
-    shell.exec('git tag foo@1.1.0')
-    mkdirp.sync('./packages/foo')
+    exec('git tag foo@1.1.0')
+    fs.mkdirSync('./packages/foo', { recursive: true })
     writeFileSync('./packages/foo/test2', '')
-    shell.exec('git add --all && git commit -m"feat: second lerna style commit woo"')
+    exec('git add --all && git commit -m"feat: second lerna style commit woo"')
   },
   function () { // 18
     gitDummyCommit()
-    shell.exec('git tag 3.0.0')
+    exec('git tag 3.0.0')
   },
   function () { // 19
-    shell.exec('git checkout feature')
+    exec('git checkout feature')
     gitDummyCommit('included in 5.0.0')
-    shell.exec('git checkout -b feature2')
+    exec('git checkout -b feature2')
     gitDummyCommit('merged, unreleased')
-    shell.exec('git checkout master')
+    exec('git checkout master')
     gitDummyCommit('included in 4.0.0')
-    shell.exec('git tag v4.0.0')
-    shell.exec('git merge feature -m"Merge branch \'feature\'"')
+    exec('git tag v4.0.0')
+    exec('git merge feature -m"Merge branch \'feature\'"')
     writeFileSync('./package.json', '{"version": "5.0.0"}') // required by angular preset.
-    shell.exec('git add --all && git commit -m"5.0.0"')
-    shell.exec('git tag v5.0.0')
-    shell.exec('git merge feature2 -m"Merge branch \'feature2\'"')
+    exec('git add --all && git commit -m"5.0.0"')
+    exec('git tag v5.0.0')
+    exec('git merge feature2 -m"Merge branch \'feature2\'"')
   }
 ])
 
 betterThanBefore.tearsWithJoy(function () {
-  shell.cd(dir)
+  process.chdir(dir)
 })
 
 describe('conventionalChangelogCore', function () {
@@ -212,7 +211,7 @@ describe('conventionalChangelogCore', function () {
 
   it('should work when there is no `HEAD` ref', function (done) {
     preparing(2)
-    shell.rm('.git/refs/HEAD')
+    rimraf.sync('.git/refs/HEAD')
     let i = 0
 
     conventionalChangelogCore({

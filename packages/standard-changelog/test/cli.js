@@ -1,19 +1,15 @@
 'use strict'
 const expect = require('chai').expect
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
-const before = mocha.before
-const beforeEach = mocha.beforeEach
-const after = mocha.after
-const shell = require('shelljs')
 const spawn = require('child_process').spawn
 const fs = require('fs')
 const path = require('path')
+const rimraf = require('rimraf')
 const readFileSync = fs.readFileSync
 const writeFileSync = fs.writeFileSync
+const { gitInit, gitDummyCommit, exec } = require('../../../tools/test-tools')
 
 const cliPath = path.join(__dirname, '../cli.js')
+const oldDir = process.cwd()
 
 require('chai').should()
 
@@ -23,21 +19,22 @@ function originalChangelog () {
 
 describe('standard-changelog cli', function () {
   before(function () {
-    shell.config.resetForTesting()
-    shell.cd(__dirname)
-    shell.rm('-rf', 'tmp')
-    shell.mkdir('tmp')
-    shell.cd('tmp')
-    shell.exec('git init')
-    shell.exec('git add --all && git commit --allow-empty -m"feat: First commit"')
+    process.chdir(__dirname)
+    rimraf.sync('tmp')
+    console.log('before', __dirname)
+    fs.mkdirSync('tmp')
+    process.chdir('tmp')
+    gitInit()
+    gitDummyCommit('feat: First commit')
   })
 
   beforeEach(function () {
-    shell.rm('-rf', 'CHANGELOG.md')
+    rimraf.sync('CHANGELOG.md')
   })
 
   after(function () {
     originalChangelog()
+    process.chdir(oldDir)
   })
 
   describe('without any argument', function () {
@@ -286,7 +283,7 @@ describe('standard-changelog cli', function () {
   })
 
   it('generates full historical changelog on --first-release', function (done) {
-    shell.exec('git tag -a v0.0.17 -m "old release"')
+    exec('git tag -a v0.0.17 -m "old release"')
 
     const cp = spawn(process.execPath, [cliPath, '-k', path.join(__dirname, 'fixtures/_package.json'), '--first-release'], {
       stdio: [process.stdin, null, null]
@@ -296,7 +293,7 @@ describe('standard-changelog cli', function () {
       expect(code).to.equal(0)
       const modified = readFileSync('CHANGELOG.md', 'utf8')
       expect(modified).to.include('First commit')
-      shell.exec('git tag -d v0.0.17')
+      exec('git tag -d v0.0.17')
       done()
     })
   })

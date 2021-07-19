@@ -2,23 +2,18 @@
 const conventionalChangelogCore = require('conventional-changelog-core')
 const config = require('../')
 const expect = require('chai').expect
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
-const before = mocha.before
-const gitDummyCommit = require('git-dummy-commit')
-const shell = require('shelljs')
 const through = require('through2')
+const tmp = require('tmp')
+const { gitInit, gitDummyCommit } = require('../../../tools/test-tools')
+
+tmp.setGracefulCleanup()
+const oldDir = process.cwd()
 
 describe('ember preset', function () {
-  before(function () {
-    shell.config.resetForTesting()
-    shell.cd(__dirname)
-    shell.rm('-rf', 'tmp')
-    shell.mkdir('tmp')
-    shell.cd('tmp')
-    shell.mkdir('git-templates')
-    shell.exec('git init --template=./git-templates')
+  beforeEach(() => {
+    const tmpDir = tmp.dirSync()
+    process.chdir(tmpDir.name)
+    gitInit()
 
     gitDummyCommit(['Merge pull request #12001 from rwjblue/remove-with-controller', '[CLEANUP beta] Remove {{with}} keyword\'s controller option. Closes #1'])
     gitDummyCommit(['Merge pull request #11984 from emberjs/fix-each', '[PERF beta] `@each` should remain a stable node for chains.'])
@@ -29,6 +24,10 @@ describe('ember preset', function () {
     gitDummyCommit(['Merge pull request #1000 from jayphelps/remove-ember-views-component-block-info', '[SECURITY CVE-2014-0013] Ensure primitive value contexts are escaped.'])
     gitDummyCommit('Bad commit')
     gitDummyCommit('Merge pull request #2000000 from jayphelps/remove-ember-views-component-block-info')
+  })
+
+  afterEach(() => {
+    process.chdir(oldDir)
   })
 
   it('should work if there is no semver tag', function (done) {

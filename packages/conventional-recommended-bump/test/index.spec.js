@@ -3,44 +3,40 @@
 const assert = require('assert')
 const betterThanBefore = require('better-than-before')()
 const conventionalRecommendedBump = require('../index')
-const mocha = require('mocha')
-const describe = mocha.describe
-const it = mocha.it
-const gitDummyCommit = require('git-dummy-commit')
-const shell = require('shelljs')
-const temp = require('temp')
+const fs = require('fs')
+const tmp = require('tmp')
+const { gitInit, gitDummyCommit, exec } = require('../../../tools/test-tools')
 
 const preparing = betterThanBefore.preparing
-shell.config.silent = true
 
 betterThanBefore.setups([
   () => { // 1
-    const tempDirectory = temp.mkdirSync()
-    shell.cd(tempDirectory)
-    shell.exec('git init')
+    const tmpDir = tmp.dirSync()
+    process.chdir(tmpDir.name)
+    gitInit()
   },
   () => { // 2
     gitDummyCommit(['feat!: my first commit'])
   },
   () => { // 3
-    shell.exec('git tag v1.0.0')
+    exec('git tag v1.0.0')
   },
   () => { // 4
     // we need non-empty commit, so we can revert it
-    shell.touch('file1')
-    shell.exec('git add file1')
+    fs.writeFileSync('file1', '')
+    exec('git add file1')
     gitDummyCommit(['feat: my second commit'])
   },
   () => { // 5
-    shell.exec('git revert HEAD')
+    exec('git revert HEAD')
   },
   () => { // 6
     gitDummyCommit(['feat: should not be taken into account', 'BREAKING CHANGE: I broke the API'])
-    shell.exec('git tag ms/1.0.0')
+    exec('git tag ms/1.0.0')
     gitDummyCommit(['feat: this should have been working'])
   },
   () => { // 7
-    shell.exec('git tag my-package@1.0.0')
+    exec('git tag my-package@1.0.0')
     gitDummyCommit(['feat: this should have been working'])
   }
 ])
