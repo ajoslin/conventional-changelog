@@ -1,6 +1,6 @@
 {
   "name": "conventional-commits-filter",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Filter out reverted commits parsed by conventional-commits-parser",
   "bugs": {
     "url": "https://github.com/conventional-changelog/conventional-changelog/issues"

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.0.8](https://www.github.com/conventional-changelog/conventional-changelog/compare/conventional-commits-filter@2.0.7...v2.0.8) (2021-01-27)
+
+
+### Bug Fixes
+
+* align lodash dependency across packages ([#737](https://www.github.com/conventional-changelog/conventional-changelog/issues/737)) ([d9feeb6](https://www.github.com/conventional-changelog/conventional-changelog/commit/d9feeb605de28c00ef55b5c8e229efd1289dd6e8))
+
 ## [2.0.7](https://github.com/conventional-changelog/conventional-changelog/compare/conventional-commits-filter@2.0.6...conventional-commits-filter@2.0.7) (2020-11-05)
 
 **Note:** Version bump only for package conventional-commits-filter
