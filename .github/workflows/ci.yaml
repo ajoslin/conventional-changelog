@@ -19,8 +19,9 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: node --version
-      - run: npm install --engine-strict
-      - run: npm test
+      - run: yarn install --engine-strict
+      - run: yarn lint
+      - run: yarn test
       - name: coverage
         uses: codecov/codecov-action@v1
         with:
@@ -35,8 +36,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 12
-      - run: npm install --engine-strict
-      - run: npm run test-windows
+      - run: yarn install --engine-strict
+      - run: yarn test-windows
       - name: coverage
         uses: codecov/codecov-action@v1
         with:
