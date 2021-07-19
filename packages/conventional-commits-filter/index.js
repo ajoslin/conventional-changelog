@@ -1,7 +1,7 @@
 'use strict'
 
 const isMatch = require('lodash/isMatch')
-const modifyValues = require('modify-values')
+const mapValues = require('lodash/mapValues')
 
 function modifyValue (val) {
   if (typeof val === 'string') {
@@ -31,10 +31,10 @@ function conventionalCommitsFilter (commits) {
   ret = ret.filter(function (commit) {
     let ignoreThis = false
 
-    commit = commit.raw ? modifyValues(commit.raw, modifyValue) : modifyValues(commit, modifyValue)
+    commit = commit.raw ? mapValues(commit.raw, modifyValue) : mapValues(commit, modifyValue)
 
     ignores.some(function (ignoreCommit) {
-      const ignore = modifyValues(ignoreCommit.revert, modifyValue)
+      const ignore = mapValues(ignoreCommit.revert, modifyValue)
 
       ignoreThis = isMatch(commit, ignore)
 
