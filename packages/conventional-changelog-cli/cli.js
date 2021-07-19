@@ -50,6 +50,7 @@ const cli = meow(`
       -c, --context             A filepath of a json that is used to define template variables
       -l, --lerna-package       Generate a changelog for a specific lerna package (:pkg-name@1.0.0)
       -t, --tag-prefix          Tag prefix to consider when reading the tags
+      --tag-from                Tag to start reading from when reading the tags
       --commit-path             Generate a changelog scoped to a specific directory
 `, {
   booleanDefault: undefined,
@@ -171,7 +172,9 @@ try {
   process.exit(1)
 }
 
-const gitRawCommitsOpts = _.merge({}, config.gitRawCommitsOpts || {})
+const gitRawCommitsOpts = _.merge({
+  from: flags.tagFrom
+}, config.gitRawCommitsOpts || {})
 if (flags.commitPath) gitRawCommitsOpts.path = flags.commitPath
 
 const changelogStream = conventionalChangelog(options, templateContext, gitRawCommitsOpts, config.parserOpts, config.writerOpts)

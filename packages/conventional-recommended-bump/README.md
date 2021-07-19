@@ -9,21 +9,27 @@ Got the idea from https://github.com/conventional-changelog/conventional-changel
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [Install](#install)
-- [Usage](#usage)
-- [API](#api)
-    - [options](#options)
-      - [ignoreReverted](#ignorereverted)
-      - [preset](#preset)
-      - [config](#config)
-      - [whatBump](#whatbump)
-      - [tagPrefix](#tagprefix)
-      - [skipUnstable](#skipunstable)
-      - [lernaPackage](#lernapackage)
-      - [path](#path)
-    - [parserOpts](#parseropts)
-    - [callback](#callback)
-- [License](#license)
+- [conventional-recommended-bump](#conventional-recommended-bump)
+  - [Table of Contents](#table-of-contents)
+  - [Install](#install)
+  - [Usage](#usage)
+  - [API](#api)
+      - [options](#options)
+        - [ignoreReverted](#ignorereverted)
+        - [preset](#preset)
+        - [config](#config)
+        - [whatBump](#whatbump)
+        - [tagPrefix](#tagprefix)
+        - [skipUnstable](#skipunstable)
+        - [lernaPackage](#lernapackage)
+        - [path](#path)
+        - [tagFrom](#tagfrom)
+      - [parserOpts](#parseropts)
+      - [callback](#callback)
+  - [Debugging](#debugging)
+  - [Node Support Policy](#node-support-policy)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -68,6 +74,7 @@ In the case you don't want to provide `parserOpts`, then `callback` must be prov
 * preset
 * config
 * whatBump
+* tagFrom
 
 ##### ignoreReverted
 
@@ -132,6 +139,14 @@ For instance if your project contained a package named `conventional-changelog`,
 **Type:** `string`
 
 Specify the path to only calculate with git commits related to the path. If you want to calculate recommended bumps of packages in a [Lerna](https://lernajs.io/)-managed repository, `path` should be use along with `lernaPackage` for each of the package.
+
+##### tagFrom
+
+**Type:** `string`
+
+Specify the base tag to use as the base from which to analyze the commits. Can be any tag, not just a semver tag.
+
+If not specified the most recent semver tag will be chosen.
 
 #### parserOpts
 

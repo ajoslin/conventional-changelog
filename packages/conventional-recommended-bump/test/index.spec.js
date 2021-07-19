@@ -42,6 +42,11 @@ betterThanBefore.setups([
   () => { // 7
     shell.exec('git tag my-package@1.0.0')
     gitDummyCommit(['feat: this should have been working'])
+  },
+  () => { // 8
+    gitDummyCommit(['feat: should not be taken into account - at not-a-version', 'BREAKING CHANGE: I broke the API'])
+    shell.exec('git tag not-a-version')
+    gitDummyCommit(['feat: this should have been working - post not-a-version'])
   }
 ])
 
@@ -331,6 +336,32 @@ describe('conventional-recommended-bump API', () => {
         whatBump: commits => {
           assert.strictEqual(commits.length, 1)
           assert.strictEqual(commits[0].type, 'feat')
+          done()
+        }
+      }, () => {})
+    })
+  })
+
+  describe('optional tagFrom', () => {
+    it('should return an error when tagFrom option references a non-existent tag', done => {
+      preparing(8)
+
+      conventionalRecommendedBump({
+        tagFrom: 'not-an-existing-tag'
+      }, {}, err => {
+        assert.ok(err)
+        done()
+      })
+    })
+
+    it('should recommend \'minor\' version bump when tagFrom option is set to an existing arbitrary tag', done => {
+      preparing(8)
+
+      conventionalRecommendedBump({
+        tagFrom: 'not-a-version',
+        whatBump: commits => {
+          assert.strictEqual(commits[0].type, 'feat')
+          assert.strictEqual(commits.length, 1)
           done()
         }
       }, () => {})

@@ -27,6 +27,7 @@ const cli = meow(`
       -t, --tag-prefix               Tag prefix to consider when reading the tags
       --commit-path                  Recommend a bump scoped to a specific directory
       --skip-unstable                If given, unstable tags will be skipped, e.g., x.x.x-alpha.1, x.x.x-rc.2
+      --tag-from                     Tag to start reading from when reading the tags
 `, {
   flags: {
     preset: {
@@ -81,6 +82,11 @@ if (preset) {
 } else if (config) {
   options.config = require(path.resolve(process.cwd(), config))
   delete flags.config
+}
+
+if (flags.tagFrom) {
+  options.tagFrom = flags.tagFrom
+  delete flags.tagFrom
 }
 
 if (flags.verbose) {

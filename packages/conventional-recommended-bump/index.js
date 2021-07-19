@@ -70,11 +70,15 @@ function conventionalRecommendedBump (optionsArgument, parserOptsArgument, cbArg
         return cb(err)
       }
 
-      gitRawCommits({
+      const commitStream = gitRawCommits({
         format: '%B%n-hash-%n%H',
-        from: tags[0] || '',
+        from: options.tagFrom || tags[0] || '',
         path: options.path
       })
+
+      commitStream.on('error', cb)
+
+      commitStream
         .pipe(conventionalCommitsParser(parserOpts))
         .pipe(concat(data => {
           const commits = options.ignoreReverted ? conventionalCommitsFilter(data) : data
