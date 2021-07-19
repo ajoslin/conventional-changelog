@@ -192,4 +192,21 @@ describe('git-raw-commits', function () {
         done()
       }))
   })
+
+  it('should add all git parameters before "-- <path>" part for them not to be ignored', function (done) {
+    var command = ''
+
+    gitRawCommits({
+      firstParent: true,
+      path: './packages/foo',
+      debug: (output) => command = output.split('\n').pop(),
+    })
+      .pipe(through(function (chunk, enc, cb) {
+        cb()
+      }, function () {
+        expect(command).to.match(/git log --format=%B%n------------------------ >8 ------------------------ --first-parent HEAD -- .\/packages\/foo/)
+        done()
+      }))
+  })
+
 })
